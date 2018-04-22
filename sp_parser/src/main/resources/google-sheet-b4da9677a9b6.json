@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "midyear-bivouac-201709",
+  "private_key_id": "b4da9677a9b651186358707a13294ed038248bcd",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCxM3UU9kvc48Kh\n5MQBDnxpzM9yytYvK1zKXTFlVj1u8pRQ4tX+lKFP4L6GpQhXM/c09LspOxpUWlYB\ndcNOsLgPqSd+F6AqFFru+X+63QCqdWmQLL0H6YVavDAcO74E+DDoYipumfNIOGY1\n5JuMDzockyJflDwoePSPWHLsO04/sdcHwsBSsQGENjrloi0llVXHtq+NRN3MVFw2\nOxcnKKhGbWqqjLOCddthi+1ZDxrPj3oMTud197i8PgiIDUF9reF3mvl1ms0m+uCL\nCw+uNcXbRVBvJvyzerS/b0s/U1fGdMdo+1jH5gOgKflW1bFmyRW7E1I1q8sMMozO\nJsOniy4hAgMBAAECggEAGjwO0cFsNmIPCwZyQWDKaSSOMwXWQ4oFNR2qhkEIG+C0\ntiv7ODN7lXal5ovQ6g4yw4eXHRHXwlTUhmdPuNr/iSwHQYsQZqJ4Wwib0UfOhS4Y\naKTDAMShPm99pPRwW859+S2tcA4BX3ggI8r6f3gyp4/eBy4MYQaVWJKlAxX9rf6w\ng5c3iUoAxtKkWjQurn8VQvEluC9tNstVOJeWKmcK/S5uiM9wXbvtZcPqYid3C8zB\nrs8QYYQcldv2cOb5cvLZNP3cKvbGGobtlAtgsbP9k2CJ+V5mc/f2CVB/WXbWdVE9\nLaRVMLxsbdR8dyt+MLjx/gqFE35yxkIVUU/kokioxQKBgQDd2UsHUoMMQ1F0u3oZ\nhGcL8GNgkpLUjEf4PnUyZ6CWwb6U+PnManqw8HscLcj/N6ZRV5p1zIKbKQZIT0yL\nAoDWSnjjh2ELgbr0wcy9bY8Sze4YXX68XGyGO2NG/vvP87ugsScYJW0wZ04NWIdL\n2DAkw6GCdqI6yv2gHfHLlQRENQKBgQDMeqp7juQZoPlgJbkbgdeujkohDiZmaEAM\n7Zmxblkj6KexLZLzaRrh/6GmTKJZOFbF3mD/rFVkcamNL1RIsr8fZ3DMhw7cRBGo\n9/pNjdOvEKK9x8IZc/6fFxlKSGW6MycOF2z2ZONY5C5U+Oe4KsaKc2rXzLeKeJqx\nfBlYm5XnvQKBgQC8C5a0UzVvrJQcDVm2zWsHTLD/x94bufi7LD3tBrexcfJYlh4v\nLkZnOsAvp4OLCaG5qzbrCPngCUsg+c6Yuft5KNEFk9gnh8Rv+OHR4072EoXyMzXc\n9b6rnSVOpY3Ou/tbfy3zIq5F7BrV5ydvm4VbdFOvoV1r1mpbUWaGOP7PzQKBgQCv\neNS0E3tLQwi9qaGgKVydPx3+H9Z0KyJL9dnemYOFfTHqqeFhYODg8C4YN8taJS7R\nvnQe9BSTjbaioesCN+IrYOk7mur1urQs/CCgTQVLRkth8PpwPUpT286oIFir4Rmy\nzgeDqjAvKCFaaf7v3EVkqocViWg4PCcECCr4DwwlQQKBgCyFZXUZj442ZO/rVl4n\nA0201C5kBJpiLgVKFUZhR/In5/1VYHrWZpoh3MgMawKzwdWT3XiyxGCiql5XFfsP\nc8CntUv9TzU4f3wvNW+8lZbiFnye+/UEI1xyRGh45gH0ouSzr655qmnRgQlKBpGG\nXwHQfAnIHioSUPaVsLCzIMQR\n-----END PRIVATE KEY-----\n",
+  "client_email": "studies-planner@midyear-bivouac-201709.iam.gserviceaccount.com",
+  "client_id": "109988272536539494466",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/studies-planner%40midyear-bivouac-201709.iam.gserviceaccount.com"
+}
