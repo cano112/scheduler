@@ -39,8 +39,9 @@ public class GoogleSheetDownloader implements  SheetDownloader{
         if(!url.contains(GOOGLE_DOCS_BASE))
             throw new IllegalArgumentException();
 
-        return url.replace(GOOGLE_DOCS_BASE, "");
-
+        url = url.replace(GOOGLE_DOCS_BASE, "");
+        int index = url.indexOf("/");
+        return index == -1 ? url : url.substring(0, index);
     }
 
     public GoogleSheetDownloader(String spreadsheetId) {
