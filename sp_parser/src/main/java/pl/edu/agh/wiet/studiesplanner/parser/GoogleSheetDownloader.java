@@ -1,3 +1,5 @@
+package pl.edu.agh.wiet.studiesplanner.parser;
+
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
@@ -13,10 +15,9 @@ import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.api.services.sheets.v4.model.Sheet;
 import com.google.api.services.sheets.v4.model.Spreadsheet;
 import com.google.api.services.sheets.v4.model.ValueRange;
+import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
@@ -28,7 +29,7 @@ public class GoogleSheetDownloader implements  SheetDownloader{
     private static final String CREDENTIALS_FOLDER = "credentials";
 
     private static final List<String> SCOPES = Collections.singletonList(SheetsScopes.SPREADSHEETS_READONLY);
-    private static final String CLIENT_SECRET_DIR = "client_secret.json";
+    private static final String CLIENT_SECRET = "/client_secret.json";
 
     private final String spreadsheetId;
     List<List<Object>> values;
@@ -67,9 +68,10 @@ public class GoogleSheetDownloader implements  SheetDownloader{
         return values;
     }
 
-    private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
+    private Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
         // Load client secrets.
-        InputStream in = SheetsStart.class.getResourceAsStream(CLIENT_SECRET_DIR);
+        InputStream in = getClass().getResource(CLIENT_SECRET).openStream();
+
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
         // Build flow and trigger user authorization request.
