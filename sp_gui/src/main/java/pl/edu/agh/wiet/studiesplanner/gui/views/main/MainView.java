@@ -14,7 +14,7 @@ public class MainView extends VerticalLayout implements View {
 
     @PostConstruct
     void init() {
-        addComponent(new Label("Tu bedzie aplikacja"));
+        addComponent(new Label("Copyright © 2018"));
     }
 
     @Override

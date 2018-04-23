@@ -30,48 +30,45 @@ public class MainUI extends BaseUI {
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-        final VerticalLayout root = new VerticalLayout();
+        final VerticalLayout root = new VerticalLayout(new Label("Studies planner"));
         setContent(root);
 
         final CssLayout navigationBar = new CssLayout();
         navigationBar.addStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
         navigationBar.addComponent(createLogoutButton());
 
-//        final CssLayout addDatabase = new CssLayout();
         plans = Arrays.asList("plan0", "plan1", "plan2");
 
-        FormLayout elem1 = new FormLayout();
-        FormLayout form = new FormLayout();
-        CssLayout add1 = new CssLayout();
+        HorizontalLayout schedulesAndPersonalInf = new HorizontalLayout();
+        FormLayout scheduleForm = new FormLayout();
+        HorizontalLayout addingSchedule = new HorizontalLayout();
         scheduleDatabaseNameField = new TextField("GOOGLE DOCS scheduler ");
-        add1.addComponent(scheduleDatabaseNameField);
-        add1.addComponent(createAddScheduleButton());
-        form.addComponent(add1);
+        addingSchedule.addComponent(scheduleDatabaseNameField);
+        addingSchedule.addComponent(createAddScheduleButton());
+        scheduleForm.addComponent(addingSchedule);
 
+        Grid<String> ScheduleList = new Grid<>();
+        ScheduleList.setItems(plans);
+        ScheduleList.addColumn(String::toString).setCaption("Name");
+        scheduleForm.addComponent(ScheduleList);
+        schedulesAndPersonalInf.addComponent(scheduleForm);
 
-
-        Grid<String> grid = new Grid<>();
-        grid.setItems(plans);
-        grid.addColumn(String::toString).setCaption("Name");
-        form.addComponent(grid);
-        elem1.addComponent(form);
-
-        FormLayout form2 = new FormLayout();
-        CssLayout add2 = new CssLayout();
+        FormLayout PersonalInfForm = new FormLayout();
+        HorizontalLayout addingPersonalInf = new HorizontalLayout();
         personalInfDatabaseNameField = new TextField("GOOGLE DOCS personal inf.");
-        add2.addComponent(personalInfDatabaseNameField);
-        add2.addComponent(createPersonalInfButton());
-        form2.addComponent(add2);
+        addingPersonalInf.addComponent(personalInfDatabaseNameField);
+        addingPersonalInf.addComponent(createPersonalInfButton());
+        PersonalInfForm.addComponent(addingPersonalInf);
 
         List<String> personalInf = Arrays.asList("person0", "person1", "person2");
-        Grid<String> grid2 = new Grid<>();
-        grid2.setItems(personalInf);
-        grid2.addColumn(String::toString).setCaption("Name");
-        form2.addComponent(grid2);
-        elem1.addComponent(form2);
+        Grid<String> PersonalInfList = new Grid<>();
+        PersonalInfList.setItems(personalInf);
+        PersonalInfList.addColumn(String::toString).setCaption("Name");
+        PersonalInfForm.addComponent(PersonalInfList);
+        schedulesAndPersonalInf.addComponent(PersonalInfForm);
 
         root.addComponent(navigationBar);
-        root.addComponent(elem1);
+        root.addComponent(schedulesAndPersonalInf);
         root.addComponent(viewDisplay);
         root.setExpandRatio(viewDisplay, 1.0f);
 
