@@ -5,6 +5,5 @@ import java.security.GeneralSecurityException;
 import java.util.List;
 
 public interface SheetDownloader {
-    public SheetDownloader download() throws GeneralSecurityException, IOException;
-    public List<List<Object>> getValues();
+    List<List<Object>> download(String url) throws GeneralSecurityException, IOException;
 }
