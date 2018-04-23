@@ -1,5 +1,10 @@
 package pl.edu.agh.wiet.studiesplanner.parser;
 
+import pl.edu.agh.wiet.studiesplanner.model.data.Activity;
+import pl.edu.agh.wiet.studiesplanner.model.data.ActivityType;
+import pl.edu.agh.wiet.studiesplanner.model.data.Convention;
+import pl.edu.agh.wiet.studiesplanner.model.data.TimeBlock;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -72,7 +77,6 @@ public class SheetParser {
 
     private static boolean validateActivity(List<Object> row, int i) {
         if(row.get(i).toString().equals("") || row.get(i+1).toString().equals("") || row.get(i+2).toString().equals("")) return false;
-        if(!Arrays.asList("W", "L", "C").contains(row.get(i+1).toString())) return false;
-        return true;
+        return Arrays.asList("W", "L", "C").contains(row.get(i + 1).toString());
     }
 }

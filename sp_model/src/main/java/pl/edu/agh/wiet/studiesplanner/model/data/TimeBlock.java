@@ -1,4 +1,4 @@
-package pl.edu.agh.wiet.studiesplanner.parser;
+package pl.edu.agh.wiet.studiesplanner.model.data;
 
 import java.util.ArrayList;
 import java.util.List;
