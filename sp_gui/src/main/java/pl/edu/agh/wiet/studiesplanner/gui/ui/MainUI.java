@@ -42,7 +42,7 @@ public class MainUI extends BaseUI {
         HorizontalLayout schedulesAndPersonalInf = new HorizontalLayout();
         FormLayout scheduleForm = new FormLayout();
         HorizontalLayout addingSchedule = new HorizontalLayout();
-        scheduleDatabaseNameField = new TextField("GOOGLE DOCS scheduler ");
+        scheduleDatabaseNameField = new TextField("GOOGLE DOCS schedule ");
         addingSchedule.addComponent(scheduleDatabaseNameField);
         addingSchedule.addComponent(createAddScheduleButton());
         scheduleForm.addComponent(addingSchedule);
@@ -84,6 +84,7 @@ public class MainUI extends BaseUI {
 
     private Button createAddScheduleButton() {
         Button button = new Button("+");
+        button.setHeight("100%");
         button.addStyleName(ValoTheme.BUTTON_PRIMARY);
         button.addClickListener(e -> addSchedule());
         return button;
@@ -91,6 +92,7 @@ public class MainUI extends BaseUI {
 
     private Button createPersonalInfButton() {
         Button button = new Button("+");
+        button.setHeight("100%");
         button.addStyleName(ValoTheme.BUTTON_PRIMARY);
         button.addClickListener(e -> addPersonalInf());
         return button;
