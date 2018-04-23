@@ -16,11 +16,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().
-                exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")).accessDeniedPage("/accessDenied")
+        http
+                .csrf().disable()
+                .exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")).accessDeniedPage("/accessDenied")
                 .and().authorizeRequests()
-                .antMatchers("/VAADIN/**", "/PUSH/**", "/UIDL/**", "/login", "/login/**", "/error/**", "/accessDenied/**", "/vaadinServlet/**").permitAll()
-                .antMatchers("/authorized", "/**").fullyAuthenticated();
+                .antMatchers("/VAADIN/**", "/PUSH/**", "/UIDL/**", "/login", "/login/**", "/error/**",
+                        "/accessDenied/**", "/vaadinServlet/**", "/h2", "/h2/**").permitAll()
+                .antMatchers("/authorized", "/**").fullyAuthenticated()
+                .and().headers().frameOptions().disable();
     }
 
     @Bean
