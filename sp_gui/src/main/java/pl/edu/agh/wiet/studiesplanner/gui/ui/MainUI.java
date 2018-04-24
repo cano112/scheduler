@@ -1,21 +1,25 @@
 package pl.edu.agh.wiet.studiesplanner.gui.ui;
 
 import com.vaadin.annotations.Theme;
+import com.vaadin.server.BrowserWindowOpener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.CssLayout;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.edu.agh.wiet.studiesplanner.gui.service.LoginService;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
 @Theme("valo")
-@SpringUI(path="/app")
+@SpringUI(path = "/app")
 public class MainUI extends BaseUI {
 
+    private final String APP_HEIGHT = "100%";
     private final LoginService loginService;
+
 
     @Autowired
     public MainUI(GenericViewDisplay viewDisplay, LoginService loginService) {
@@ -26,6 +30,7 @@ public class MainUI extends BaseUI {
     @Override
     protected void init(VaadinRequest vaadinRequest) {
         final VerticalLayout root = new VerticalLayout();
+        root.setHeight(APP_HEIGHT);
         setContent(root);
 
         final CssLayout navigationBar = new CssLayout();
@@ -35,6 +40,10 @@ public class MainUI extends BaseUI {
         root.addComponent(navigationBar);
         root.addComponent(viewDisplay);
         root.setExpandRatio(viewDisplay, 1.0f);
+
+        Label copyrightLabel = new Label("Copyright © 2018");
+        root.addComponent(copyrightLabel);
+        root.setComponentAlignment(copyrightLabel, Alignment.BOTTOM_CENTER);
     }
 
     private Button createLogoutButton() {
@@ -48,4 +57,5 @@ public class MainUI extends BaseUI {
         loginService.logout();
         UI.getCurrent().getPage().setLocation("/login");
     }
+
 }

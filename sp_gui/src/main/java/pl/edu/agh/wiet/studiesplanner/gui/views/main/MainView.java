@@ -4,7 +4,10 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import pl.edu.agh.wiet.studiesplanner.gui.service.GoogleDocsLinksService;
 import pl.edu.agh.wiet.studiesplanner.gui.ui.MainUI;
+import pl.edu.agh.wiet.studiesplanner.model.parser.GoogleDocsLink;
 
 import javax.annotation.PostConstruct;
 
@@ -12,9 +15,17 @@ import javax.annotation.PostConstruct;
 public class MainView extends VerticalLayout implements View {
     public static final String VIEW_NAME = "";
 
+    private final GoogleDocsLinksService googleDocsLinksService;
+
+    @Autowired
+    public MainView(GoogleDocsLinksService googleDocsLinksService) {
+        this.googleDocsLinksService = googleDocsLinksService;
+    }
+
     @PostConstruct
     void init() {
-        addComponent(new Label("Tu bedzie aplikacja"));
+        Component googleDocsLinksComponent = new GoogleDocsLinksFormComponent(googleDocsLinksService, "60%");
+        addComponent(googleDocsLinksComponent);
     }
 
     @Override
