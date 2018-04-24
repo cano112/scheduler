@@ -4,7 +4,7 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.spring.annotation.SpringUI;
 
 @Theme("valo")
-@SpringUI(path="/login")
+@SpringUI(path = "/login")
 public class LoginUI extends BaseUI {
 
     public LoginUI(GenericViewDisplay viewDisplay) {

@@ -17,10 +17,9 @@ import java.util.List;
 @SpringUI(path = "/app")
 public class MainUI extends BaseUI {
 
+    private final String APP_HEIGHT = "100%";
     private final LoginService loginService;
-    TextField scheduleDatabaseNameField;
-    TextField personalInfDatabaseNameField;
-    List<String> plans;
+
 
     @Autowired
     public MainUI(GenericViewDisplay viewDisplay, LoginService loginService) {
@@ -31,51 +30,20 @@ public class MainUI extends BaseUI {
     @Override
     protected void init(VaadinRequest vaadinRequest) {
         final VerticalLayout root = new VerticalLayout();
+        root.setHeight(APP_HEIGHT);
         setContent(root);
 
         final CssLayout navigationBar = new CssLayout();
         navigationBar.addStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
         navigationBar.addComponent(createLogoutButton());
 
-//        final CssLayout addDatabase = new CssLayout();
-        plans = Arrays.asList("plan0", "plan1", "plan2");
-
-        FormLayout elem1 = new FormLayout();
-        FormLayout form = new FormLayout();
-        CssLayout add1 = new CssLayout();
-        scheduleDatabaseNameField = new TextField("GOOGLE DOCS scheduler ");
-        add1.addComponent(scheduleDatabaseNameField);
-        add1.addComponent(createAddScheduleButton());
-        form.addComponent(add1);
-
-
-
-        Grid<String> grid = new Grid<>();
-        grid.setItems(plans);
-        grid.addColumn(String::toString).setCaption("Name");
-        form.addComponent(grid);
-        elem1.addComponent(form);
-
-        FormLayout form2 = new FormLayout();
-        CssLayout add2 = new CssLayout();
-        personalInfDatabaseNameField = new TextField("GOOGLE DOCS personal inf.");
-        add2.addComponent(personalInfDatabaseNameField);
-        add2.addComponent(createPersonalInfButton());
-        form2.addComponent(add2);
-
-        List<String> personalInf = Arrays.asList("person0", "person1", "person2");
-        Grid<String> grid2 = new Grid<>();
-        grid2.setItems(personalInf);
-        grid2.addColumn(String::toString).setCaption("Name");
-        form2.addComponent(grid2);
-        elem1.addComponent(form2);
-
         root.addComponent(navigationBar);
-        root.addComponent(elem1);
         root.addComponent(viewDisplay);
         root.setExpandRatio(viewDisplay, 1.0f);
 
-
+        Label copyrightLabel = new Label("Copyright © 2018");
+        root.addComponent(copyrightLabel);
+        root.setComponentAlignment(copyrightLabel, Alignment.BOTTOM_CENTER);
     }
 
     private Button createLogoutButton() {
@@ -84,31 +52,6 @@ public class MainUI extends BaseUI {
         button.addClickListener(e -> logout());
         return button;
     }
-
-    private Button createAddScheduleButton() {
-        Button button = new Button("+");
-        button.addStyleName(ValoTheme.BUTTON_PRIMARY);
-        button.addClickListener(e -> addSchedule());
-        return button;
-    }
-
-    private Button createPersonalInfButton() {
-        Button button = new Button("+");
-        button.addStyleName(ValoTheme.BUTTON_PRIMARY);
-        button.addClickListener(e -> addPersonalInf());
-        return button;
-    }
-
-    private void addSchedule() {
-        scheduleDatabaseNameField.getValue();
-        UI.getCurrent().getPage().setLocation("/app");
-    }
-
-    private void addPersonalInf() {
-        scheduleDatabaseNameField.getValue();
-        UI.getCurrent().getPage().setLocation("/app");
-    }
-
 
     private void logout() {
         loginService.logout();
