@@ -40,10 +40,6 @@ public class MainUI extends BaseUI {
         root.addComponent(navigationBar);
         root.addComponent(viewDisplay);
         root.setExpandRatio(viewDisplay, 1.0f);
-
-        Label copyrightLabel = new Label("Copyright © 2018");
-        root.addComponent(copyrightLabel);
-        root.setComponentAlignment(copyrightLabel, Alignment.BOTTOM_CENTER);
     }
 
     private Button createLogoutButton() {

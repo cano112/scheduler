@@ -8,7 +8,7 @@ import pl.edu.agh.wiet.studiesplanner.model.parser.GoogleDocsLink;
 public class GoogleDocsLinksFormComponent extends AppAbstractComponent {
 
 
-    private static final double GRID_HEIGHT = 4; // in rows visible
+    private static final double GRID_HEIGHT = 3; // in rows visible
     private static final String GRID_WIDTH = "100%";
 
 
