@@ -1,53 +1,56 @@
 package pl.edu.agh.wiet.studiesplanner.model.data;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Created by Michał on 22.04.2018.
  */
-public class TimeBlock {
-    private String date;
-    private String hourStart;
-    private String hourEnd;
-    private List<Activity> activityList;
+public final class TimeBlock {
+    private final LocalDateTime timeStart;
+    private final LocalDateTime timeEnd;
+    private final List<Activity> activityList;
 
-    public TimeBlock() {
-        activityList = new ArrayList<>();
+
+    public TimeBlock(LocalDateTime timeStart, LocalDateTime timeEnd, List<Activity> activities) {
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+        this.activityList = Collections.unmodifiableList(activities);
     }
 
-    public String getDate() {
-        return date;
+    public LocalDateTime getTimeStart() {
+        return timeStart;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getHourStart() {
-        return hourStart;
-    }
-
-    public void setHourStart(String hourStart) {
-        this.hourStart = hourStart;
-    }
-
-    public String getHourEnd() {
-        return hourEnd;
-    }
-
-    public void setHourEnd(String hourEnd) {
-        this.hourEnd = hourEnd;
+    public LocalDateTime getTimeEnd() {
+        return timeEnd;
     }
 
     public List<Activity> getActivityList() {
         return activityList;
     }
 
-    public void setActivityList(List<Activity> activityList) {
-        this.activityList = activityList;
+    public boolean isOverlappingWith(TimeBlock other) {
+        return timeEnd.isAfter(other.timeStart) && timeStart.isBefore(other.timeEnd);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        TimeBlock timeBlock = (TimeBlock) o;
 
+        if (!timeStart.equals(timeBlock.timeStart)) return false;
+        return timeEnd.equals(timeBlock.timeEnd);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = timeStart.hashCode();
+        result = 31 * result + timeEnd.hashCode();
+        return result;
+    }
 }

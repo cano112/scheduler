@@ -1,82 +1,99 @@
 package pl.edu.agh.wiet.studiesplanner.parser;
 
-import pl.edu.agh.wiet.studiesplanner.model.data.Activity;
-import pl.edu.agh.wiet.studiesplanner.model.data.ActivityType;
-import pl.edu.agh.wiet.studiesplanner.model.data.Convention;
-import pl.edu.agh.wiet.studiesplanner.model.data.TimeBlock;
+import org.springframework.cglib.core.Local;
+import org.springframework.stereotype.Service;
+import pl.edu.agh.wiet.studiesplanner.model.data.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Michał on 22.04.2018.
  */
+
+@Service
 public class SheetParser {
-    public static List<Convention> parse(List<List<Object>> downloadedSheet) {
+
+    public List<Convention> parse(List<List<Object>> downloadedSheet) {
         List<Convention> conventionList = new ArrayList<>();
         List<Object> headerRow = null;
+        List<TimeBlock> timeBlocksWorkingList = new ArrayList<>();
+        int conventionNumber = -1;
 
-        for (List<Object> row: downloadedSheet) {
+        for (List<Object> row : downloadedSheet) {
             if(isHeader(row)) {
                 headerRow = row;
                 continue;
             }
             if(isNewConvention(row)) {
-                conventionList.add(new Convention(Integer.parseInt(row.get(0).toString())));
+                if(!timeBlocksWorkingList.isEmpty() && conventionNumber != -1) {
+                    conventionList.add(new Convention(conventionNumber, timeBlocksWorkingList));
+                }
+                conventionNumber = Integer.parseInt(row.get(0).toString());
+                timeBlocksWorkingList = new ArrayList<>();
             }
-            conventionList
-                    .get(conventionList.size() - 1)
-                    .getTimeBlocks()
-                    .add(parseRow(row, headerRow));
+            timeBlocksWorkingList.add(parseRow(row, headerRow));
+        }
+        if(!timeBlocksWorkingList.isEmpty() && conventionNumber != -1) {
+            conventionList.add(new Convention(conventionNumber, timeBlocksWorkingList));
         }
 
         return conventionList;
     }
 
-    private static TimeBlock parseRow(List<Object> row, List<Object> headerRow) {
-        TimeBlock timeBlock = new TimeBlock();
+    private TimeBlock parseRow(List<Object> row, List<Object> headerRow) {
         String[] hours = row.get(2).toString().replaceAll("\\s+", "").split("-");
 
-        timeBlock.setDate(row.get(1).toString().replaceAll("\\s+", ""));
-        timeBlock.setHourStart(hours[0]);
-        timeBlock.setHourEnd(hours[1]);
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d.M.yyyy");
+        LocalDate date = LocalDate.parse(row.get(1).toString().replaceAll("\\s+", ""), dateFormatter);
 
-        for(int i=3; i<row.size(); i+=3) {
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("H:mm");
+        LocalDateTime startTime = LocalDateTime.of(date, LocalTime.parse(hours[0], timeFormatter));
+        LocalDateTime endTime = LocalDateTime.of(date, LocalTime.parse(hours[1], timeFormatter));
+
+        List<Activity> activityWorkingList = new ArrayList<>();
+        for(int i = 3; i < row.size(); i += 3) {
             Activity activity = parseActivity(row, i, headerRow);
-            if(activity != null) timeBlock.getActivityList().add(activity);
+            if(activity != null) activityWorkingList.add(activity);
         }
 
-        return timeBlock;
+        return new TimeBlock(startTime, endTime, activityWorkingList);
     }
 
-    private static Activity parseActivity(List<Object> row, int i, List<Object> headerRow) {
+    private Activity parseActivity(List<Object> row, int i, List<Object> headerRow) {
         if(!validateActivity(row, i)) return null;
-
-        Activity activity = new Activity();
 
         String[] subjectAndClassroom = row.get(i).toString().split(", ");
         String[] headerContent = headerRow.get(i).toString().split(" ");
 
-        activity.setSubject(subjectAndClassroom[0]);
-        activity.setClassroom(subjectAndClassroom[1]);
-        activity.setType(ActivityType.valueOf(row.get(i+1).toString().replaceAll("\\s+", "")));
-        activity.setTeacher(row.get(i+2).toString());
-        activity.setStudentsGroup(Integer.parseInt(headerContent[1]));
+        Subject subject = new Subject(subjectAndClassroom[0]);
+        Classroom classroom = new Classroom(subjectAndClassroom[1]);
+        ActivityType type = ActivityType.valueOf(row.get(i+1).toString().replaceAll("\\s+", ""));
 
-        return activity;
+        String[] name = row.get(i+2).toString().split(" ");
+        Teacher teacher = new Teacher(name[0], name[1]);
+        StudentsGroup group = new StudentsGroup(Integer.parseInt(headerContent[1]));
+
+        return new Activity(teacher, type, subject, classroom, group);
     }
 
-    private static boolean isHeader(List<Object> row) {
+    private boolean isHeader(List<Object> row) {
         return !(row.get(0).toString().equals("") || row.get(0).toString().matches("\\d+"));
     }
 
-    private static boolean isNewConvention(List<Object> row) {
+    private boolean isNewConvention(List<Object> row) {
         return row.get(0).toString().matches("\\d+");
     }
 
-    private static boolean validateActivity(List<Object> row, int i) {
-        if(row.get(i).toString().equals("") || row.get(i+1).toString().equals("") || row.get(i+2).toString().equals("")) return false;
-        return Arrays.asList("W", "L", "C").contains(row.get(i + 1).toString());
+    private boolean validateActivity(List<Object> row, int i) {
+        return !row.get(i).toString().equals("") && !row.get(i + 1).toString().equals("") &&
+                !row.get(i + 2).toString().equals("") &&
+                Arrays.asList("W", "L", "C").contains(row.get(i + 1).toString());
     }
 }
