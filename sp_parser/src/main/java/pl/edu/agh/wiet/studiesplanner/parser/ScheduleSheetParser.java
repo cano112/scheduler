@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Michał on 22.04.2018.
  */
-public class SheetParser {
+public class ScheduleSheetParser {
     public static List<Convention> parse(List<List<Object>> downloadedSheet) {
         List<Convention> conventionList = new ArrayList<>();
         List<Object> headerRow = null;
