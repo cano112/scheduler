@@ -14,6 +14,7 @@ public class ConflictSolver {
         Set<Conflict> conflicts = new HashSet<>();
         conflicts.addAll(solveConflictsByCriterion(conventions, Activity::getTeacher));
         conflicts.addAll(solveConflictsByCriterion(conventions, Activity::getClassroom));
+        conflicts.addAll(solveConflictsByCriterion(conventions, Activity::getStudentsGroup));
 
         return conflicts;
     }
