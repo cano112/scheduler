@@ -13,7 +13,7 @@ public class Convention {
 
     public Convention(int number, List<TimeBlock> timeBlocks) {
         this.conventionNumber = number;
-        this.timeBlocks = Collections.unmodifiableList(timeBlocks);
+        this.timeBlocks = timeBlocks;
     }
 
     public int getConventionNumber() {

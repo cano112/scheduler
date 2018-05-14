@@ -10,7 +10,7 @@ import java.util.function.Function;
 @Service
 public class ConflictSolver {
 
-    public Set<Conflict> solve(List<Convention> conventions) {
+    public Set<Conflict> solve(Iterable<Convention> conventions) {
         Set<Conflict> conflicts = new HashSet<>();
         conflicts.addAll(solveConflictsByCriterion(conventions, Activity::getTeacher));
         conflicts.addAll(solveConflictsByCriterion(conventions, Activity::getClassroom));
@@ -18,7 +18,7 @@ public class ConflictSolver {
         return conflicts;
     }
 
-    private Set<Conflict> solveConflictsByCriterion(List<Convention> conventions,
+    private Set<Conflict> solveConflictsByCriterion(Iterable<Convention> conventions,
                                                     Function<Activity, ConflictCriterion> criterionProducer) {
         final Map<ConflictCriterion, List<TimeBlock>> blocksByCriteria = new HashMap<>();
         final Set<Conflict> conflicts = new HashSet<>();

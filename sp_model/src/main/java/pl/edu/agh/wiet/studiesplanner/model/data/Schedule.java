@@ -1,39 +1,52 @@
 package pl.edu.agh.wiet.studiesplanner.model.data;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Optional;
+import java.util.Set;
 
 public class Schedule {
-    private List<Convention> conventions;
-    private List<StudentsGroup> studentsGroups;
+    private final Set<Convention> conventions;
+    private final Set<StudentsGroup> studentsGroups;
+    private final Set<Teacher> teachers;
 
-    public void setConventions(List<Convention> conventions) {
-        this.conventions = conventions;
+    public Schedule() {
+        this.conventions = new LinkedHashSet<>();
+        this.studentsGroups = new LinkedHashSet<>();
+        this.teachers = new LinkedHashSet<>();
     }
 
-    public void setStudentsGroups(List<StudentsGroup> studentsGroups) {
-        this.studentsGroups = studentsGroups;
+    public void addConvention(Convention convention) {
+        conventions.add(convention);
     }
 
-    public List<Convention> getConventions() {
+    public void addStudentsGroup(StudentsGroup group) {
+        studentsGroups.add(group);
+    }
+
+    public void addTeacher(Teacher teacher) {
+        teachers.add(teacher);
+    }
+
+    public Optional<StudentsGroup> getStudentsGroupById(int id) {
+        return studentsGroups
+                .stream()
+                .filter(group -> group.getId() == id)
+                .findFirst();
+    }
+
+    public Set<Convention> getConventions() {
         return conventions;
     }
 
-    public List<StudentsGroup> getStudentsGroups() {
+    public Set<StudentsGroup> getStudentsGroups() {
         return studentsGroups;
     }
 
-    public List<Student> generateStudentList(Activity activity) {
-        int groupNr = activity.getStudentsGroup();
-        for (StudentsGroup studentsGroup: studentsGroups) {
-            if (studentsGroup.getGroupNumber() == groupNr) {
-                return  studentsGroup.getStudentsList();
-            }
-        }
-        return null;
+    public Set<Teacher> getTeachers() {
+        return teachers;
     }
 
+    /* TODO: rework and put it into notifications module
     public String generateStudentListToText(Activity activity) {
         List<Student> studentList = generateStudentList(activity);
         if (studentList == null) {
@@ -60,6 +73,6 @@ public class Schedule {
             return studentListText.toString();
         }
     }
-
-
+     */
 }
+

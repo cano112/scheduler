@@ -17,7 +17,7 @@ public final class TimeBlock {
     public TimeBlock(LocalDateTime timeStart, LocalDateTime timeEnd, List<Activity> activities) {
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
-        this.activityList = Collections.unmodifiableList(activities);
+        this.activityList = activities;
     }
 
     public LocalDateTime getTimeStart() {

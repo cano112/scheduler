@@ -3,58 +3,49 @@ package pl.edu.agh.wiet.studiesplanner.model.data;
 /**
  * Created by Michał on 07.05.2018.
  */
-public class Student {
-    private String name;
-    private String surname;
-    private String ID;
-    private String email;
-    private int groupNumber;
+public class Student extends Person {
+    private final String id;
+    private final String email;
+    private final StudentsGroup group;
 
-    public Student(String name, String surname, String ID, String email, int groupNumber) {
-        this.name = name;
-        this.surname = surname;
-        this.ID = ID;
+    public Student(String firstName, String surname, String id, String email, StudentsGroup group) {
+        super(firstName, surname);
+        this.id = id;
         this.email = email;
-        this.groupNumber = groupNumber;
+        this.group = group;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getID() {
-        return ID;
-    }
-
-    public void setID(String ID) {
-        this.ID = ID;
+    public String getId() {
+        return id;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public StudentsGroup getGroup() {
+        return group;
     }
 
-    public int getGroupNumber() {
-        return groupNumber;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Student student = (Student) o;
+
+        if (!id.equals(student.id)) return false;
+        if (!email.equals(student.email)) return false;
+        return group.equals(student.group);
     }
 
-    public void setGroupNumber(int groupNumber) {
-        this.groupNumber = groupNumber;
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + id.hashCode();
+        result = 31 * result + email.hashCode();
+        result = 31 * result + group.hashCode();
+        return result;
     }
 }

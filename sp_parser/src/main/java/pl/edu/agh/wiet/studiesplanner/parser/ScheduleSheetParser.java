@@ -1,6 +1,5 @@
 package pl.edu.agh.wiet.studiesplanner.parser;
 
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.wiet.studiesplanner.model.data.*;
 
@@ -10,7 +9,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,10 +16,10 @@ import java.util.List;
  */
 
 @Service
-public class SheetParser {
+public class ScheduleSheetParser {
 
-    public List<Convention> parse(List<List<Object>> downloadedSheet) {
-        List<Convention> conventionList = new ArrayList<>();
+    public Schedule parse(List<List<Object>> downloadedSheet) {
+        Schedule model = new Schedule();
         List<Object> headerRow = null;
         List<TimeBlock> timeBlocksWorkingList = new ArrayList<>();
         int conventionNumber = -1;
@@ -33,21 +31,21 @@ public class SheetParser {
             }
             if(isNewConvention(row)) {
                 if(!timeBlocksWorkingList.isEmpty() && conventionNumber != -1) {
-                    conventionList.add(new Convention(conventionNumber, timeBlocksWorkingList));
+                    model.addConvention(new Convention(conventionNumber, timeBlocksWorkingList));
                 }
                 conventionNumber = Integer.parseInt(row.get(0).toString());
                 timeBlocksWorkingList = new ArrayList<>();
             }
-            timeBlocksWorkingList.add(parseRow(row, headerRow));
+            timeBlocksWorkingList.add(parseRow(row, headerRow, model));
         }
         if(!timeBlocksWorkingList.isEmpty() && conventionNumber != -1) {
-            conventionList.add(new Convention(conventionNumber, timeBlocksWorkingList));
+            model.addConvention(new Convention(conventionNumber, timeBlocksWorkingList));
         }
 
-        return conventionList;
+        return model;
     }
 
-    private TimeBlock parseRow(List<Object> row, List<Object> headerRow) {
+    private TimeBlock parseRow(List<Object> row, List<Object> headerRow, Schedule model) {
         String[] hours = row.get(2).toString().replaceAll("\\s+", "").split("-");
 
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d.M.yyyy");
@@ -59,14 +57,14 @@ public class SheetParser {
 
         List<Activity> activityWorkingList = new ArrayList<>();
         for(int i = 3; i < row.size(); i += 3) {
-            Activity activity = parseActivity(row, i, headerRow);
+            Activity activity = parseActivity(row, i, headerRow, model);
             if(activity != null) activityWorkingList.add(activity);
         }
 
         return new TimeBlock(startTime, endTime, activityWorkingList);
     }
 
-    private Activity parseActivity(List<Object> row, int i, List<Object> headerRow) {
+    private Activity parseActivity(List<Object> row, int i, List<Object> headerRow, Schedule model) {
         if(!validateActivity(row, i)) return null;
 
         String[] subjectAndClassroom = row.get(i).toString().split(", ");
@@ -78,7 +76,9 @@ public class SheetParser {
 
         String[] name = row.get(i+2).toString().split(" ");
         Teacher teacher = new Teacher(name[0], name[1]);
+        model.addTeacher(teacher);
         StudentsGroup group = new StudentsGroup(Integer.parseInt(headerContent[1]));
+        model.addStudentsGroup(group);
 
         return new Activity(teacher, type, subject, classroom, group);
     }
