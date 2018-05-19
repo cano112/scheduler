@@ -3,10 +3,18 @@ package pl.edu.agh.wiet.studiesplanner.model.data;
 public abstract class Person {
     private final String firstName;
     private final String surname;
+    private String email;
 
     protected Person(String firstName, String surname) {
         this.firstName = firstName;
         this.surname = surname;
+        this.email = null;
+    }
+
+    public Person(String firstName, String surname, String email) {
+        this.firstName = firstName;
+        this.surname = surname;
+        this.email = email;
     }
 
     public String getFullName() {
@@ -18,6 +26,14 @@ public abstract class Person {
 
     public String getSurname() {
         return surname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

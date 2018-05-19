@@ -22,14 +22,15 @@ public class EmailSenderImpl implements EmailSender{
         MimeMessage mail = javaMailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(mail, true);
-            helper.setTo((String[]) email.getTo().toArray());
-            helper.setCc((String[]) email.getCc().toArray());
-            helper.setFrom(email.getFrom());
+            helper.setTo(email.getTo().toArray(new String[0]));
+            helper.setCc(email.getCc().toArray(new String[0]));
             helper.setSubject(email.getSubject());
             helper.setText(email.getMessage(), email.isHtml());
-            for(File attachment: email.getAttachments()){
-                helper.addAttachment(attachment.getName(), attachment);
-            }
+            List<File> attachments = email.getAttachments();
+            if(attachments != null)
+                for(File attachment: attachments){
+                    helper.addAttachment(attachment.getName(), attachment);
+                }
 
         } catch (MessagingException e) {
             e.printStackTrace();
