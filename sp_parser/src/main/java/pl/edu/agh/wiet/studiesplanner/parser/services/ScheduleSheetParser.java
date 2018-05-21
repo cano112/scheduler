@@ -1,4 +1,4 @@
-package pl.edu.agh.wiet.studiesplanner.parser;
+package pl.edu.agh.wiet.studiesplanner.parser.services;
 
 import org.springframework.stereotype.Service;
 import pl.edu.agh.wiet.studiesplanner.model.data.*;
@@ -16,10 +16,9 @@ import java.util.List;
  */
 
 @Service
-public class ScheduleSheetParser {
+public class ScheduleSheetParser implements SheetParser {
 
-    public Schedule parse(List<List<Object>> downloadedSheet) {
-        Schedule model = new Schedule();
+    public void parse(List<List<Object>> downloadedSheet, Schedule model) {
         List<Object> headerRow = null;
         List<TimeBlock> timeBlocksWorkingList = new ArrayList<>();
         int conventionNumber = -1;
@@ -41,8 +40,6 @@ public class ScheduleSheetParser {
         if(!timeBlocksWorkingList.isEmpty() && conventionNumber != -1) {
             model.addConvention(new Convention(conventionNumber, timeBlocksWorkingList));
         }
-
-        return model;
     }
 
     private TimeBlock parseRow(List<Object> row, List<Object> headerRow, Schedule model) {

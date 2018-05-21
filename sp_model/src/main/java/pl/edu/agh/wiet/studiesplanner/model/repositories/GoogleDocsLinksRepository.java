@@ -12,4 +12,7 @@ public interface GoogleDocsLinksRepository extends LinksRepository<GoogleDocsLin
 
     @Query("SELECT l FROM GoogleDocsParticipantLink l WHERE TYPE(l) = GoogleDocsParticipantLink")
     Stream<GoogleDocsLink> streamParticipantLinks();
+
+    @Query("SELECT l FROM GoogleDocsParticipantLink l WHERE TYPE(l) = GoogleDocsTeacherLink")
+    Stream<GoogleDocsLink> streamTeacherLinks();
 }

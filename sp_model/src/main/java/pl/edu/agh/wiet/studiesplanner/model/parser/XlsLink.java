@@ -9,21 +9,8 @@ import javax.validation.constraints.NotNull;
         discriminatorType = DiscriminatorType.CHAR)
 @DiscriminatorValue("D")
 public abstract class XlsLink extends DocumentLink {
-
-    @Column
-    @NotNull
-    private String path;
-
     protected XlsLink() {}
-    protected XlsLink(@NotNull String path) {
-        this.path = path;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
+    protected XlsLink(@NotNull String url) {
+        super(url);
     }
 }

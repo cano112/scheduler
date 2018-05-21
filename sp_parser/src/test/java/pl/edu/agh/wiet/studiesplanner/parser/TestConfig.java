@@ -3,8 +3,9 @@ package pl.edu.agh.wiet.studiesplanner.parser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import pl.edu.agh.wiet.studiesplanner.model.data.Convention;
 import pl.edu.agh.wiet.studiesplanner.model.data.Schedule;
+import pl.edu.agh.wiet.studiesplanner.parser.services.GoogleSheetDownloader;
+import pl.edu.agh.wiet.studiesplanner.parser.services.ScheduleSheetParser;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -21,6 +22,8 @@ public class TestConfig {
         GoogleSheetDownloader downloader = new GoogleSheetDownloader();
         ScheduleSheetParser parser = new ScheduleSheetParser();
         List<List<Object>> downloaded = downloader.download(URL);
-        return parser.parse(downloaded);
+        Schedule schedule = new Schedule();
+        parser.parse(downloaded, schedule);
+        return schedule;
     }
 }

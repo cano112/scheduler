@@ -19,7 +19,7 @@ public class StudentsGroupConflict extends Conflict {
     @Override
     public String getDescription() {
         StringBuilder desc = new StringBuilder("Students' group " + studentsGroup.getId()
-                + "conflict in following time blocks: ");
+                + " conflict in following time blocks: ");
 
         for(TimeBlock block : timeBlocks) {
             String startTime = block.getTimeStart().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM));

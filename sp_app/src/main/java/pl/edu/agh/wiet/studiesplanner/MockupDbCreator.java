@@ -8,6 +8,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import pl.edu.agh.wiet.studiesplanner.model.parser.GoogleDocsParticipantLink;
 import pl.edu.agh.wiet.studiesplanner.model.parser.GoogleDocsScheduleLink;
+import pl.edu.agh.wiet.studiesplanner.model.parser.GoogleDocsTeacherLink;
 import pl.edu.agh.wiet.studiesplanner.model.repositories.GoogleDocsLinksRepository;
 
 import javax.transaction.Transactional;
@@ -32,9 +33,11 @@ public class MockupDbCreator implements ApplicationListener<ContextRefreshedEven
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         logger.info("Creating mockup db");
-        GoogleDocsScheduleLink link1 = new GoogleDocsScheduleLink("https://docs.google.com/spreadsheets/d/1lu5vacNbFj_5mwQR9MA1CrmSSnfvSnWDA2AhaO5gg9c/edit#gid=0");
-        GoogleDocsParticipantLink link2 = new GoogleDocsParticipantLink("participants_link");
+        GoogleDocsScheduleLink link1 = new GoogleDocsScheduleLink("https://docs.google.com/spreadsheets/d/1lu5vacNbFj_5mwQR9MA1CrmSSnfvSnWDA2AhaO5gg9c");
+        GoogleDocsParticipantLink link2 = new GoogleDocsParticipantLink("https://docs.google.com/spreadsheets/d/1BpUiCHBonM9Ai6h0ME38z58webex5vFHPOc0QaY1aW0");
+        GoogleDocsTeacherLink link3 = new GoogleDocsTeacherLink("https://docs.google.com/spreadsheets/d/1BpUiCHBonM9Ai6h0ME38z58webex5vFHPOc0QaY1aW0");
         googleDocsLinksRepository.save(link1);
         googleDocsLinksRepository.save(link2);
+        googleDocsLinksRepository.save(link3);
     }
 }

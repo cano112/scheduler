@@ -18,7 +18,7 @@ public final class TeacherConflict extends Conflict {
     @Override
     public String getDescription() {
         StringBuilder desc = new StringBuilder("Teacher " + teacher.getFullName()
-                + "conflict in following time blocks: ");
+                + " conflict in following time blocks: ");
 
         for(TimeBlock block : timeBlocks) {
             String startTime = block.getTimeStart().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM));

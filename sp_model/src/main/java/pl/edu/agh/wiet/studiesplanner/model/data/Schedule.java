@@ -3,12 +3,12 @@ package pl.edu.agh.wiet.studiesplanner.model.data;
 import java.util.*;
 
 public class Schedule {
-    private final List<Convention> conventions;
+    private final Set<Convention> conventions;
     private final Set<StudentsGroup> studentsGroups;
     private final Set<Teacher> teachers;
 
     public Schedule() {
-        this.conventions = new ArrayList<>();
+        this.conventions = new LinkedHashSet<>();
         this.studentsGroups = new LinkedHashSet<>();
         this.teachers = new LinkedHashSet<>();
     }
@@ -32,7 +32,7 @@ public class Schedule {
                 .findFirst();
     }
 
-    public List<Convention> getConventions() {
+    public Set<Convention> getConventions() {
         return conventions;
     }
 
@@ -43,6 +43,19 @@ public class Schedule {
     public Set<Teacher> getTeachers() {
         return teachers;
     }
+
+    public void addConventions(Collection<? extends Convention> conventions) {
+        this.conventions.addAll(conventions);
+    }
+
+    public void addStudentGroups(Collection<? extends StudentsGroup> studentsGroups) {
+        this.studentsGroups.addAll(studentsGroups);
+    }
+
+    public void addTeachers(Collection<? extends Teacher> teachers) {
+        this.teachers.addAll(teachers);
+    }
+
 
     /* TODO: rework and put it into notifications module
     public String generateStudentListToText(Activity activity) {

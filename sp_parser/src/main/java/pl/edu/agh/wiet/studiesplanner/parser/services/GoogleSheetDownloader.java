@@ -1,4 +1,4 @@
-package pl.edu.agh.wiet.studiesplanner.parser;
+package pl.edu.agh.wiet.studiesplanner.parser.services;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;

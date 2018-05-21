@@ -9,21 +9,8 @@ import javax.validation.constraints.NotNull;
         discriminatorType = DiscriminatorType.CHAR)
 @DiscriminatorValue("D")
 public abstract class GoogleDocsLink extends DocumentLink {
-
-    @Column
-    @NotNull
-    private String url;
-
     protected GoogleDocsLink() {}
-    protected GoogleDocsLink(String url) {
-        this.url = url;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
+    protected GoogleDocsLink(@NotNull String url) {
+        super(url);
     }
 }
