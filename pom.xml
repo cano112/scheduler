@@ -115,6 +115,9 @@
                     <includes>
                         <include>sp_app/target/sp-app-1.0-SNAPSHOT.jar</include>
                     </includes>
+                    <processTypes>
+                        <web>java -jar sp_app/target/sp-app-1.0-SNAPSHOT.jar</web>
+                    </processTypes>
                 </configuration>
             </plugin>
         </plugins>
