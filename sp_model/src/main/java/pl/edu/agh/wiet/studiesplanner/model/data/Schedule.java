@@ -1,16 +1,14 @@
 package pl.edu.agh.wiet.studiesplanner.model.data;
 
-import java.util.LinkedHashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public class Schedule {
-    private final Set<Convention> conventions;
+    private final List<Convention> conventions;
     private final Set<StudentsGroup> studentsGroups;
     private final Set<Teacher> teachers;
 
     public Schedule() {
-        this.conventions = new LinkedHashSet<>();
+        this.conventions = new ArrayList<>();
         this.studentsGroups = new LinkedHashSet<>();
         this.teachers = new LinkedHashSet<>();
     }
@@ -34,7 +32,7 @@ public class Schedule {
                 .findFirst();
     }
 
-    public Set<Convention> getConventions() {
+    public List<Convention> getConventions() {
         return conventions;
     }
 
