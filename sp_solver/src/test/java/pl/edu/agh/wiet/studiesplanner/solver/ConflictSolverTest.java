@@ -96,7 +96,7 @@ public class ConflictSolverTest {
     @Test
     public void testSolveWithMoreThenOneClassroomConflict() throws Exception {
         // given
-        Schedule schedule = createScheduleWithMoreThenOneClassroomConflict();
+        Schedule schedule = createScheduleWithMoreThanOneClassroomConflict();
 
         // when
         Set<Conflict> conflicts = solver.solve(schedule.getConventions());
@@ -111,7 +111,7 @@ public class ConflictSolverTest {
     @Test
     public void testSolveWithMoreThenOneTeacherConflict() throws Exception {
         // given
-        Schedule schedule = createScheduleWithMoreThenOneTeacherConflict();
+        Schedule schedule = createScheduleWithMoreThanOneTeacherConflict();
 
         // when
         Set<Conflict> conflicts = solver.solve(schedule.getConventions());
@@ -126,7 +126,7 @@ public class ConflictSolverTest {
     @Test
     public void testSolveWithMoreThenOneStudentsGroupConflict() throws Exception {
         // given
-        Schedule schedule = createScheduleWithMoreThenOneStudentsGroupConflict();
+        Schedule schedule = createScheduleWithMoreThanOneStudentsGroupConflict();
 
         // when
         Set<Conflict> conflicts = solver.solve(schedule.getConventions());
@@ -221,7 +221,6 @@ public class ConflictSolverTest {
         Teacher teacher2 = new Teacher("Adam", "Schmidt");
 
         StudentsGroup group1 = TestUtils.createStudentsGroup(1, 4);
-        //StudentsGroup group2 = TestUtils.createStudentsGroup(1, 5);
 
         Classroom classroom1 = new Classroom("P_123");
         Classroom classroom2 = new Classroom("P_321");
@@ -278,7 +277,7 @@ public class ConflictSolverTest {
         return schedule;
     }
 
-    private Schedule createScheduleWithMoreThenOneClassroomConflict() {
+    private Schedule createScheduleWithMoreThanOneClassroomConflict() {
         Schedule schedule = new Schedule();
 
         Teacher teacher1 = new Teacher("Jan", "Nowak");
@@ -314,7 +313,7 @@ public class ConflictSolverTest {
         return schedule;
     }
 
-    private Schedule createScheduleWithMoreThenOneTeacherConflict() {
+    private Schedule createScheduleWithMoreThanOneTeacherConflict() {
         Schedule schedule = new Schedule();
 
         Teacher teacher1 = new Teacher("Jan", "Nowak");
@@ -349,7 +348,7 @@ public class ConflictSolverTest {
         return schedule;
     }
 
-    private Schedule createScheduleWithMoreThenOneStudentsGroupConflict() {
+    private Schedule createScheduleWithMoreThanOneStudentsGroupConflict() {
         Schedule schedule = new Schedule();
 
         Teacher teacher1 = new Teacher("Jan", "Nowak");
