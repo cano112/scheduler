@@ -1,9 +1,10 @@
-package pl.edu.agh.wiet.studiesplanner.parser;
+package pl.edu.agh.wiet.studiesplanner.parser.services;
 
 import org.springframework.stereotype.Service;
 import pl.edu.agh.wiet.studiesplanner.model.data.Schedule;
 import pl.edu.agh.wiet.studiesplanner.model.data.Student;
 import pl.edu.agh.wiet.studiesplanner.model.data.StudentsGroup;
+import pl.edu.agh.wiet.studiesplanner.parser.exceptions.SheetParseException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  */
 
 @Service
-public class StudentsSheetParser {
+public class StudentsSheetParser implements SheetParser {
 
     public void parse(List<List<Object>> downloadedSheet, Schedule model) {
         HashMap<String, Integer> columnMap = new HashMap<>();

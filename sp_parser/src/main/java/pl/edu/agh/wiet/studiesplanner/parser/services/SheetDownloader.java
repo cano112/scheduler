@@ -1,4 +1,4 @@
-package pl.edu.agh.wiet.studiesplanner.parser;
+package pl.edu.agh.wiet.studiesplanner.parser.services;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;

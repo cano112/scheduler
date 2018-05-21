@@ -6,6 +6,7 @@ import pl.edu.agh.wiet.studiesplanner.gui.exceptions.EmptyValueException;
 import pl.edu.agh.wiet.studiesplanner.model.parser.GoogleDocsLink;
 import pl.edu.agh.wiet.studiesplanner.model.parser.GoogleDocsParticipantLink;
 import pl.edu.agh.wiet.studiesplanner.model.parser.GoogleDocsScheduleLink;
+import pl.edu.agh.wiet.studiesplanner.model.parser.GoogleDocsTeacherLink;
 import pl.edu.agh.wiet.studiesplanner.model.repositories.GoogleDocsLinksRepository;
 
 import javax.transaction.Transactional;
@@ -34,6 +35,10 @@ public class GoogleDocsLinksService {
         return googleDocsLinksRepository.streamParticipantLinks().collect(Collectors.toSet());
     }
 
+    public Set<GoogleDocsLink> getTeacherLinksSet() {
+        return googleDocsLinksRepository.streamTeacherLinks().collect(Collectors.toSet());
+    }
+
     public void addScheduleLink(String url) {
         checkEmptyLink(url);
         GoogleDocsLink link = new GoogleDocsScheduleLink(url);
@@ -52,5 +57,17 @@ public class GoogleDocsLinksService {
         if(url == null || url.isEmpty()) {
             throw new EmptyValueException("Link is empty!");
         }
+    }
+
+    public void addTeacherLink(String url) {
+        checkEmptyLink(url);
+        GoogleDocsLink link = new GoogleDocsTeacherLink(url);
+        googleDocsLinksRepository.save(link);
+        notificationService.showInfoMessage("Link added");
+    }
+
+    public void deleteLink(Set<GoogleDocsLink> links) {
+        googleDocsLinksRepository.deleteAll(links);
+        notificationService.showInfoMessage("Link deleted");
     }
 }
