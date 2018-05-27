@@ -45,6 +45,7 @@ public class GoogleSheetDownloader implements  SheetDownloader {
         final String GOOGLE_DOCS_BASE = "https://docs.google.com/spreadsheets/d/";
         if(!url.contains(GOOGLE_DOCS_BASE))
             throw new IllegalArgumentException();
-        return url.replace(GOOGLE_DOCS_BASE, "");
+        url = url.replace(GOOGLE_DOCS_BASE, "");
+        return url.split("/")[0];
     }
 }
