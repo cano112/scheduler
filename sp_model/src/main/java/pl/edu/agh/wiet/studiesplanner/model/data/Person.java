@@ -8,6 +8,13 @@ public abstract class Person {
     protected Person(String firstName, String surname) {
         this.firstName = firstName;
         this.surname = surname;
+        this.email = null;
+    }
+
+    public Person(String firstName, String surname, String email) {
+        this.firstName = firstName;
+        this.surname = surname;
+        this.email = email;
     }
 
     public String getFullName() {

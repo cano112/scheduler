@@ -13,6 +13,7 @@
         <module>sp_gui</module>
         <module>sp_solver</module>
         <module>sp_parser</module>
+        <module>sp_notifications</module>
         <module>sp_model</module>
         <module>sp_security</module>
         <module>sp_app</module>
