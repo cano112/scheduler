@@ -77,7 +77,7 @@ public class ConflictSolverTest {
         assertThat(conflicts)
                 .hasSize(1)
                 .hasOnlyElementsOfType(StudentsGroupConflict.class)
-                .allMatch(conflict -> ((StudentsGroupConflict) conflict).getStudentsGroup().getId() == 1);
+                .allMatch(conflict -> ((StudentsGroupConflict) conflict).getStudentsGroup().getId().equals("1"));
     }
 
     @Test
@@ -135,7 +135,7 @@ public class ConflictSolverTest {
         assertThat(conflicts)
                 .hasSize(2)
                 .hasOnlyElementsOfType(StudentsGroupConflict.class)
-                .allMatch(conflict -> ((StudentsGroupConflict) conflict).getStudentsGroup().getId() == 1);
+                .allMatch(conflict -> ((StudentsGroupConflict) conflict).getStudentsGroup().getId().equals("1"));
     }
 
     @Test
@@ -159,8 +159,8 @@ public class ConflictSolverTest {
         Teacher teacher1 = new Teacher("Jan", "Nowak");
         Teacher teacher2 = new Teacher("Adam", "Schmidt");
 
-        StudentsGroup group1 = TestUtils.createStudentsGroup(1, 4);
-        StudentsGroup group2 = TestUtils.createStudentsGroup(2, 5);
+        StudentsGroup group1 = TestUtils.createStudentsGroup("1", 4);
+        StudentsGroup group2 = TestUtils.createStudentsGroup("2", 5);
 
         Classroom classroom1 = new Classroom("P_123");
 
@@ -189,8 +189,8 @@ public class ConflictSolverTest {
 
         Teacher teacher1 = new Teacher("Jan", "Nowak");
 
-        StudentsGroup group1 = TestUtils.createStudentsGroup(1, 4);
-        StudentsGroup group2 = TestUtils.createStudentsGroup(2, 5);
+        StudentsGroup group1 = TestUtils.createStudentsGroup("1", 4);
+        StudentsGroup group2 = TestUtils.createStudentsGroup("2", 5);
 
         Classroom classroom1 = new Classroom("P_123");
         Classroom classroom2 = new Classroom("P_321");
@@ -220,7 +220,7 @@ public class ConflictSolverTest {
         Teacher teacher1 = new Teacher("Jan", "Nowak");
         Teacher teacher2 = new Teacher("Adam", "Schmidt");
 
-        StudentsGroup group1 = TestUtils.createStudentsGroup(1, 4);
+        StudentsGroup group1 = TestUtils.createStudentsGroup("1", 4);
 
         Classroom classroom1 = new Classroom("P_123");
         Classroom classroom2 = new Classroom("P_321");
@@ -251,8 +251,8 @@ public class ConflictSolverTest {
         Teacher teacher1 = new Teacher("Jan", "Nowak");
         Teacher teacher2 = new Teacher("Adam", "Schmidt");
 
-        StudentsGroup group1 = TestUtils.createStudentsGroup(1, 4);
-        StudentsGroup group2 = TestUtils.createStudentsGroup(2, 5);
+        StudentsGroup group1 = TestUtils.createStudentsGroup("1", 4);
+        StudentsGroup group2 = TestUtils.createStudentsGroup("2", 5);
 
         Classroom classroom1 = new Classroom("P_123");
         Classroom classroom2 = new Classroom("P_321");
@@ -283,8 +283,8 @@ public class ConflictSolverTest {
         Teacher teacher1 = new Teacher("Jan", "Nowak");
         Teacher teacher2 = new Teacher("Adam", "Schmidt");
 
-        StudentsGroup group1 = TestUtils.createStudentsGroup(1, 4);
-        StudentsGroup group2 = TestUtils.createStudentsGroup(2, 5);
+        StudentsGroup group1 = TestUtils.createStudentsGroup("1", 4);
+        StudentsGroup group2 = TestUtils.createStudentsGroup("2", 5);
 
         Classroom classroom1 = new Classroom("P_123");
 
@@ -318,8 +318,8 @@ public class ConflictSolverTest {
 
         Teacher teacher1 = new Teacher("Jan", "Nowak");
 
-        StudentsGroup group1 = TestUtils.createStudentsGroup(1, 4);
-        StudentsGroup group2 = TestUtils.createStudentsGroup(2, 5);
+        StudentsGroup group1 = TestUtils.createStudentsGroup("1", 4);
+        StudentsGroup group2 = TestUtils.createStudentsGroup("2", 5);
 
         Classroom classroom1 = new Classroom("P_123");
         Classroom classroom2 = new Classroom("P_321");
@@ -354,8 +354,8 @@ public class ConflictSolverTest {
         Teacher teacher1 = new Teacher("Jan", "Nowak");
         Teacher teacher2 = new Teacher("Adam", "Schmidt");
 
-        StudentsGroup group1 = TestUtils.createStudentsGroup(1, 4);
-        //StudentsGroup group2 = TestUtils.createStudentsGroup(1, 5);
+        StudentsGroup group1 = TestUtils.createStudentsGroup("1", 4);
+        //StudentsGroup group2 = TestUtils.createStudentsGroup("1", 5);
 
         Classroom classroom1 = new Classroom("P_123");
         Classroom classroom2 = new Classroom("P_321");
@@ -391,8 +391,8 @@ public class ConflictSolverTest {
         Teacher teacher1 = new Teacher("Jan", "Nowak");
         Teacher teacher2 = new Teacher("Adam", "Schmidt");
 
-        StudentsGroup group1 = TestUtils.createStudentsGroup(1, 4);
-        StudentsGroup group2 = TestUtils.createStudentsGroup(2, 5);
+        StudentsGroup group1 = TestUtils.createStudentsGroup("1", 4);
+        StudentsGroup group2 = TestUtils.createStudentsGroup("2", 5);
 
         Classroom classroom1 = new Classroom("P_123");
         Classroom classroom2 = new Classroom("P_321");

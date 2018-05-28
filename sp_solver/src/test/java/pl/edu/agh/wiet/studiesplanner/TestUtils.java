@@ -11,7 +11,7 @@ public class TestUtils {
     private static final String[] FIRST_NAMES = { "Jan", "Monika" };
     private static final String[] SURNAMES = { "Kowalski", "Nowak" };
 
-    public static StudentsGroup createStudentsGroup(int id, int size) {
+    public static StudentsGroup createStudentsGroup(String id, int size) {
         StudentsGroup group = new StudentsGroup(id);
         IntStream
                 .range(0, size)
