@@ -1,6 +1,7 @@
 package pl.edu.agh.wiet.studiesplanner.model.data;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,6 +23,10 @@ public class Convention {
 
     public List<TimeBlock> getTimeBlocks() {
         return timeBlocks;
+    }
+
+    public void addTimeBlocks(Collection<TimeBlock> timeBlocks) {
+        this.timeBlocks.addAll(timeBlocks);
     }
 
     @Override

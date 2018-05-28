@@ -1,4 +1,4 @@
-package pl.edu.agh.wiet.studiesplanner.parser.services;
+package pl.edu.agh.wiet.studiesplanner.model.service;
 
 import pl.edu.agh.wiet.studiesplanner.model.data.Schedule;
 

@@ -3,29 +3,31 @@ package pl.edu.agh.wiet.studiesplanner.model.data;
 import pl.edu.agh.wiet.studiesplanner.model.solver.Conflict;
 import pl.edu.agh.wiet.studiesplanner.model.solver.StudentsGroupConflict;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public final class StudentsGroup implements ConflictCriterion {
     private final int id;
-    private final List<Student> students;
+    private final Set<Student> students;
 
     public StudentsGroup(int id) {
         this.id = id;
-        this.students = new LinkedList<>();
+        this.students = new LinkedHashSet<>();
     }
 
     public int getId() {
         return id;
     }
 
-    public List<Student> getStudents() {
+    public Set<Student> getStudents() {
         return students;
     }
 
     public void addStudent(Student student) {
         students.add(student);
+    }
+
+    public void addStudents(Collection<Student> students) {
+        this.students.addAll(students);
     }
 
     @Override

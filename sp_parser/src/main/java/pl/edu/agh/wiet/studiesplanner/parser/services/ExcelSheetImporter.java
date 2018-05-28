@@ -1,12 +1,22 @@
 package pl.edu.agh.wiet.studiesplanner.parser.services;
 
 import org.apache.poi.ss.usermodel.*;
+import org.springframework.stereotype.Service;
+import pl.edu.agh.wiet.studiesplanner.model.service.DocumentFetcher;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExcelSheetImporter {
+@Service("excelSheetImporter")
+public class ExcelSheetImporter implements DocumentFetcher {
+
+    @Override
+    public List<List<Object>> getDocument(String url) {
+        return importExcel(url);
+    }
+
     public List<List<Object>> importExcel(String filePath) {
         List<List<Object>> importedSheet = new ArrayList<>();
         Workbook workbook = null;

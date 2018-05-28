@@ -4,19 +4,25 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import pl.edu.agh.wiet.studiesplanner.gui.service.ConflictSolverService;
 import pl.edu.agh.wiet.studiesplanner.gui.service.NotificationService;
+import pl.edu.agh.wiet.studiesplanner.notifications.NotificationStateHolder;
 
 public class ConflictSolverComponent extends AppAbstractComponent {
 
-    private ConflictSolverService conflictSolverService;
-    private NotificationService notificationService;
+    private final ConflictSolverService conflictSolverService;
+    private final NotificationService notificationService;
+    private final NotificationStateHolder notificationStateHolder;
 
     private Button checkConflictsButton;
     private TextArea conflicts;
     private CheckBox notificationCheckBox;
 
-    public ConflictSolverComponent(ConflictSolverService conflictSolverService, NotificationService notificationSenderService, String width) {
+    public ConflictSolverComponent(ConflictSolverService conflictSolverService,
+                                   NotificationService notificationSenderService,
+                                   NotificationStateHolder notificationStateHolder,
+                                   String width) {
         this.conflictSolverService = conflictSolverService;
         this.notificationService = notificationSenderService;
+        this.notificationStateHolder = notificationStateHolder;
         this.checkConflictsButton = createCheckConflictsButton();
         this.conflicts = createConflictsTextArea();
         this.notificationCheckBox = createNotificationCheckBox();
@@ -34,9 +40,12 @@ public class ConflictSolverComponent extends AppAbstractComponent {
     private void createForm(Layout layout, Button button, TextArea text, CheckBox checkBox) {
         VerticalLayout layoutWithCheckButton = new VerticalLayout();
         layoutWithCheckButton.setDefaultComponentAlignment(Alignment.BOTTOM_LEFT);
-        layoutWithCheckButton.addComponent(button);
+        HorizontalLayout buttonBar = new HorizontalLayout();
+        buttonBar.setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
+        buttonBar.addComponent(button);
+        buttonBar.addComponent(checkBox);
+        layoutWithCheckButton.addComponent(buttonBar);
         layoutWithCheckButton.addComponent(text);
-        layoutWithCheckButton.addComponent(checkBox);
         layout.addComponent(layoutWithCheckButton);
     }
 
@@ -65,12 +74,21 @@ public class ConflictSolverComponent extends AppAbstractComponent {
     }
 
     private CheckBox createNotificationCheckBox() {
-        CheckBox checkBox = new CheckBox("notification");
-        checkBox.setEnabled(false);
+        CheckBox checkBox = new CheckBox("enable notifications");
+        boolean enabled = notificationStateHolder.areNotificationsEnabled();
+        checkBox.setEnabled(enabled);
+        checkBox.setValue(enabled);
         checkBox.addStyleName(ValoTheme.BUTTON_PRIMARY);
         checkBox.addValueChangeListener(e -> {
             if (!checkBox.isEmpty()) {
-                notificationService.showInfoMessage("Sending");
+                notificationStateHolder.setNotificationsOn();
+                checkBox.setValue(true);
+                notificationService.showInfoMessage("E-mail notifications enabled");
+            } else {
+                notificationStateHolder.setNotificationsOff();
+                checkBox.setEnabled(false);
+                checkBox.setValue(false);
+                notificationService.showInfoMessage("E-mail notifications disabled");
             }
         });
         return checkBox;

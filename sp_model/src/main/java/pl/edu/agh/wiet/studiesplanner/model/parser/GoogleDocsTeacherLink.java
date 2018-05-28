@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@DiscriminatorValue("T")
+@DiscriminatorValue("GT")
 public class GoogleDocsTeacherLink extends GoogleDocsLink {
     public GoogleDocsTeacherLink() {}
     public GoogleDocsTeacherLink(@NotNull String url) {

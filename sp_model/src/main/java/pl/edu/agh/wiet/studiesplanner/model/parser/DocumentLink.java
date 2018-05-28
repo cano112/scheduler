@@ -3,8 +3,12 @@ package pl.edu.agh.wiet.studiesplanner.model.parser;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@MappedSuperclass
-public abstract class DocumentLink {
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="TYPE",
+        discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue("D")
+public abstract class DocumentLink implements Fetchable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

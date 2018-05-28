@@ -3,26 +3,46 @@ package pl.edu.agh.wiet.studiesplanner.model.data;
 import java.util.*;
 
 public class Schedule {
-    private final Set<Convention> conventions;
-    private final Set<StudentsGroup> studentsGroups;
-    private final Set<Teacher> teachers;
+    private final List<Convention> conventions;
+    private final List<StudentsGroup> studentsGroups;
+    private final List<Teacher> teachers;
 
     public Schedule() {
-        this.conventions = new LinkedHashSet<>();
-        this.studentsGroups = new LinkedHashSet<>();
-        this.teachers = new LinkedHashSet<>();
+        this.conventions = new LinkedList<>();
+        this.studentsGroups = new LinkedList<>();
+        this.teachers = new LinkedList<>();
     }
 
     public void addConvention(Convention convention) {
-        conventions.add(convention);
+        if(conventions.contains(convention)) {
+            conventions
+                    .stream()
+                    .filter(conv -> conv.equals(convention))
+                    .forEach(conv -> conv.addTimeBlocks(convention.getTimeBlocks()));
+        } else {
+            conventions.add(convention);
+        }
     }
 
     public void addStudentsGroup(StudentsGroup group) {
-        studentsGroups.add(group);
+        if(studentsGroups.contains(group)) {
+            studentsGroups
+                    .stream()
+                    .filter(g -> g.equals(group))
+                    .forEach(g -> g.addStudents(group.getStudents()));
+        } else {
+            studentsGroups.add(group);
+        }
     }
 
     public void addTeacher(Teacher teacher) {
-        teachers.add(teacher);
+        if(teachers.contains(teacher)) {
+            teachers.stream()
+                    .filter(t -> t.equals(teacher))
+                    .forEach(t -> t.setEmail(teacher.getEmail()));
+        } else {
+            teachers.add(teacher);
+        }
     }
 
     public Optional<StudentsGroup> getStudentsGroupById(int id) {
@@ -32,28 +52,28 @@ public class Schedule {
                 .findFirst();
     }
 
-    public Set<Convention> getConventions() {
+    public List<Convention> getConventions() {
         return conventions;
     }
 
-    public Set<StudentsGroup> getStudentsGroups() {
+    public List<StudentsGroup> getStudentsGroups() {
         return studentsGroups;
     }
 
-    public Set<Teacher> getTeachers() {
+    public List<Teacher> getTeachers() {
         return teachers;
     }
 
     public void addConventions(Collection<? extends Convention> conventions) {
-        this.conventions.addAll(conventions);
+        conventions.forEach(this::addConvention);
     }
 
     public void addStudentGroups(Collection<? extends StudentsGroup> studentsGroups) {
-        this.studentsGroups.addAll(studentsGroups);
+        studentsGroups.forEach(this::addStudentsGroup);
     }
 
     public void addTeachers(Collection<? extends Teacher> teachers) {
-        this.teachers.addAll(teachers);
+        teachers.forEach(this::addTeacher);
     }
 
 

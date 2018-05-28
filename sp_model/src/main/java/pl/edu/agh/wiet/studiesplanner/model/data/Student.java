@@ -31,15 +31,13 @@ public class Student extends Person {
 
         if (this.getFirstName() != null ? !this.getFirstName().equals(student.getFirstName()) : student.getFirstName() != null) return false;
         if (this.getSurname() != null ? !this.getSurname().equals(student.getSurname()) : student.getSurname()!= null) return false;
-        if (this.getId() != null ? !this.getId().equals(student.getId()) : student.getId() != null) return false;
-        return this.getEmail() != null ? this.getEmail().equals(student.getEmail()) : student.getEmail() == null;
+        return this.getId() != null ? this.getId().equals(student.getId()) : student.getId() == null;
     }
 
     @Override
     public int hashCode() {
         int result = this.getFirstName() != null ? this.getFirstName().hashCode() : 0;
         result = 31 * result + (this.getSurname() != null ? this.getSurname().hashCode() : 0);
-        result = 31 * result + (this.getEmail() != null ? this.getEmail().hashCode() : 0);
         return result;
     }
 }

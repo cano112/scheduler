@@ -12,14 +12,15 @@ import com.google.api.services.sheets.v4.model.Spreadsheet;
 import com.google.api.services.sheets.v4.model.ValueRange;
 
 import org.springframework.stereotype.Service;
+import pl.edu.agh.wiet.studiesplanner.model.service.SheetDownloader;
 
 import java.io.*;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
 
-@Service
-public class GoogleSheetDownloader implements  SheetDownloader {
+@Service("googleSheetDownloader")
+public class GoogleSheetDownloader implements SheetDownloader {
     private static final String APPLICATION_NAME = "studies-planner";
     private static final String AUTHORIZATION_KEY = "/google-sheet-b4da9677a9b6.json";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
@@ -47,5 +48,10 @@ public class GoogleSheetDownloader implements  SheetDownloader {
             throw new IllegalArgumentException();
         url = url.replace(GOOGLE_DOCS_BASE, "");
         return url.split("/")[0];
+    }
+
+    @Override
+    public List<List<Object>> getDocument(String url) throws GeneralSecurityException, IOException {
+        return download(url);
     }
 }

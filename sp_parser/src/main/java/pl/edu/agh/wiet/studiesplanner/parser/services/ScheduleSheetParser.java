@@ -2,6 +2,7 @@ package pl.edu.agh.wiet.studiesplanner.parser.services;
 
 import org.springframework.stereotype.Service;
 import pl.edu.agh.wiet.studiesplanner.model.data.*;
+import pl.edu.agh.wiet.studiesplanner.model.service.SheetParser;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -53,7 +54,7 @@ public class ScheduleSheetParser implements SheetParser {
         LocalDateTime endTime = LocalDateTime.of(date, LocalTime.parse(hours[1], timeFormatter));
 
         List<Activity> activityWorkingList = new ArrayList<>();
-        for(int i = 3; i < row.size(); i += 3) {
+        for(int i = 3; i < row.size()-2; i += 3) {
             Activity activity = parseActivity(row, i, headerRow, model);
             if(activity != null) activityWorkingList.add(activity);
         }

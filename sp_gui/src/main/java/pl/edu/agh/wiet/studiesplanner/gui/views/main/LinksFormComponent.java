@@ -2,19 +2,19 @@ package pl.edu.agh.wiet.studiesplanner.gui.views.main;
 
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
-import pl.edu.agh.wiet.studiesplanner.gui.service.GoogleDocsLinksService;
-import pl.edu.agh.wiet.studiesplanner.model.parser.GoogleDocsLink;
+import pl.edu.agh.wiet.studiesplanner.gui.service.LinksFormService;
+import pl.edu.agh.wiet.studiesplanner.model.parser.DocumentLink;
 
 import java.util.Collection;
 
-public class GoogleDocsLinksFormComponent extends AppAbstractComponent {
+public class LinksFormComponent extends AppAbstractComponent {
 
 
     private static final double GRID_HEIGHT = 3; // in rows visible
     private static final String GRID_WIDTH = "100%";
 
 
-    private GoogleDocsLinksService linksService;
+    private LinksFormService linksFormService;
 
     private TextField newScheduleLinkField;
     private TextField newParticipantLinkField;
@@ -25,13 +25,13 @@ public class GoogleDocsLinksFormComponent extends AppAbstractComponent {
     private Button deleteScheduleLinkButton;
     private Button deleteParticipantLinkButton;
     private Button deleteTeacherLinkButton;
-    private Grid<GoogleDocsLink> scheduleLinksGrid;
-    private Grid<GoogleDocsLink> participantLinksGrid;
-    private Grid<GoogleDocsLink> teacherLinksGrid;
+    private Grid<DocumentLink> scheduleLinksGrid;
+    private Grid<DocumentLink> participantLinksGrid;
+    private Grid<DocumentLink> teacherLinksGrid;
 
 
-    public GoogleDocsLinksFormComponent(GoogleDocsLinksService linksService, String width) {
-        this.linksService = linksService;
+    public LinksFormComponent(LinksFormService linksFormService, String width) {
+        this.linksFormService = linksFormService;
         this.newScheduleLinkField = new TextField("Schedule sheet link");
         this.newParticipantLinkField =  new TextField("Participants sheet link");
         this.newTeacherLinkField = new TextField("Teacher sheet link");
@@ -41,9 +41,9 @@ public class GoogleDocsLinksFormComponent extends AppAbstractComponent {
         this.deleteScheduleLinkButton = createDeleteScheduleSheetButton();
         this.deleteParticipantLinkButton = createDeleteParticipantSheetButton();
         this.deleteTeacherLinkButton = createDeleteTeacherSheetButton();
-        this.scheduleLinksGrid = createGoogleDocsGrid(linksService.getScheduleLinksSet());
-        this.participantLinksGrid = createGoogleDocsGrid(linksService.getParticipantLinksSet());
-        this.teacherLinksGrid = createGoogleDocsGrid(linksService.getTeacherLinksSet());
+        this.scheduleLinksGrid = createGrid(linksFormService.getScheduleLinksSet());
+        this.participantLinksGrid = createGrid(linksFormService.getParticipantLinksSet());
+        this.teacherLinksGrid = createGrid(linksFormService.getTeacherLinksSet());
 
         init("Google docs links", width);
     }
@@ -58,7 +58,7 @@ public class GoogleDocsLinksFormComponent extends AppAbstractComponent {
     }
 
     private void createForm(Layout layout, TextField textField, Button addButton, Button deleteButton,
-                            Grid<GoogleDocsLink> grid) {
+                            Grid<DocumentLink> grid) {
         HorizontalLayout headerWithAddButton = new HorizontalLayout();
         headerWithAddButton.addComponent(textField);
         headerWithAddButton.setDefaultComponentAlignment(Alignment.BOTTOM_RIGHT);
@@ -68,8 +68,8 @@ public class GoogleDocsLinksFormComponent extends AppAbstractComponent {
         layout.addComponent(grid);
     }
 
-    private Grid<GoogleDocsLink> createGoogleDocsGrid(Collection<GoogleDocsLink> items) {
-        Grid<GoogleDocsLink> grid = new Grid<>(GoogleDocsLink.class);
+    private Grid<DocumentLink> createGrid(Collection<DocumentLink> items) {
+        Grid<DocumentLink> grid = new Grid<>(DocumentLink.class);
         grid.removeColumn("id");
         grid.setHeightByRows(GRID_HEIGHT);
         grid.setWidth(GRID_WIDTH);
@@ -79,43 +79,43 @@ public class GoogleDocsLinksFormComponent extends AppAbstractComponent {
 
     private Button createAddParticipantSheetButton() {
         return createAddButton(e -> {
-            linksService.addParticipantLink(newParticipantLinkField.getValue());
-            participantLinksGrid.setItems(linksService.getParticipantLinksSet());
+            linksFormService.addParticipantLink(newParticipantLinkField.getValue());
+            participantLinksGrid.setItems(linksFormService.getParticipantLinksSet());
         });
     }
 
     private Button createAddScheduleSheetButton() {
         return createAddButton(e -> {
-            linksService.addScheduleLink(newScheduleLinkField.getValue());
-            scheduleLinksGrid.setItems(linksService.getScheduleLinksSet());
+            linksFormService.addScheduleLink(newScheduleLinkField.getValue());
+            scheduleLinksGrid.setItems(linksFormService.getScheduleLinksSet());
         });
     }
 
     private Button createAddTeacherSheetButton() {
         return createAddButton(e -> {
-            linksService.addTeacherLink(newTeacherLinkField.getValue());
-            scheduleLinksGrid.setItems(linksService.getScheduleLinksSet());
+            linksFormService.addTeacherLink(newTeacherLinkField.getValue());
+            scheduleLinksGrid.setItems(linksFormService.getScheduleLinksSet());
         });
     }
 
     private Button createDeleteParticipantSheetButton() {
         return createDeleteButton(e -> {
-            linksService.deleteLink(participantLinksGrid.getSelectedItems());
-            participantLinksGrid.setItems(linksService.getParticipantLinksSet());
+            linksFormService.deleteLink(participantLinksGrid.getSelectedItems());
+            participantLinksGrid.setItems(linksFormService.getParticipantLinksSet());
         });
     }
 
     private Button createDeleteScheduleSheetButton() {
         return createDeleteButton(e -> {
-            linksService.deleteLink(scheduleLinksGrid.getSelectedItems());
-            scheduleLinksGrid.setItems(linksService.getScheduleLinksSet());
+            linksFormService.deleteLink(scheduleLinksGrid.getSelectedItems());
+            scheduleLinksGrid.setItems(linksFormService.getScheduleLinksSet());
         });
     }
 
     private Button createDeleteTeacherSheetButton() {
         return createDeleteButton(e -> {
-            linksService.deleteLink(teacherLinksGrid.getSelectedItems());
-            teacherLinksGrid.setItems(linksService.getTeacherLinksSet());
+            linksFormService.deleteLink(teacherLinksGrid.getSelectedItems());
+            teacherLinksGrid.setItems(linksFormService.getTeacherLinksSet());
         });
     }
 

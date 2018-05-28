@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@DiscriminatorValue("P")
+@DiscriminatorValue("XP")
 public class XlsParticipantLink extends XlsLink {
     public XlsParticipantLink() {}
     public XlsParticipantLink(@NotNull String path) {

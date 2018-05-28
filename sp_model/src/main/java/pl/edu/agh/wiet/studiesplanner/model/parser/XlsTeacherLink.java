@@ -5,10 +5,10 @@ import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@DiscriminatorValue("XS")
-public class XlsScheduleLink extends XlsLink {
-    public XlsScheduleLink() {}
-    public XlsScheduleLink(@NotNull String path) {
+@DiscriminatorValue("XT")
+public class XlsTeacherLink extends XlsLink {
+    public XlsTeacherLink() {}
+    public XlsTeacherLink(@NotNull String path) {
         super(path);
     }
 }

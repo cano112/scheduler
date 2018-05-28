@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import pl.edu.agh.wiet.studiesplanner.model.data.Schedule;
 import pl.edu.agh.wiet.studiesplanner.model.data.Student;
 import pl.edu.agh.wiet.studiesplanner.model.data.StudentsGroup;
-import pl.edu.agh.wiet.studiesplanner.parser.exceptions.SheetParseException;
+import pl.edu.agh.wiet.studiesplanner.model.service.SheetParser;
 
 import java.util.HashMap;
 import java.util.List;

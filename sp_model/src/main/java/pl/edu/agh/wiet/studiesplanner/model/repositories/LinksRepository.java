@@ -2,21 +2,20 @@ package pl.edu.agh.wiet.studiesplanner.model.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.stereotype.Repository;
 import pl.edu.agh.wiet.studiesplanner.model.parser.DocumentLink;
 
 import java.util.stream.Stream;
 
+@Repository
+public interface LinksRepository extends JpaRepository<DocumentLink, Long> {
 
-@NoRepositoryBean
-public interface LinksRepository<T extends DocumentLink> extends JpaRepository<T, Long> {
+    @Query("SELECT l FROM DocumentLink l WHERE TYPE(l) = GoogleDocsTeacherLink OR TYPE(l) = XlsTeacherLink")
+    Stream<DocumentLink> streamAllTeacherLinks();
 
-    /**
-     * Have to be run in transaction - use @Transactional on your service class.
-     * @return stream of all links of a given type
-     * @see pl.edu.agh.wiet.studiesplanner.model.parser.GoogleDocsLink
-     * @see pl.edu.agh.wiet.studiesplanner.model.parser.XlsLink
-     */
-    @Query("SELECT l FROM #{#entityName} l")
-    Stream<T> streamLinks();
+    @Query("SELECT l FROM DocumentLink l WHERE TYPE(l) = GoogleDocsScheduleLink OR TYPE(l) = XlsScheduleLink")
+    Stream<DocumentLink> streamAllScheduleLinks();
+
+    @Query("SELECT l FROM DocumentLink l WHERE TYPE(l) = GoogleDocsParticipantLink OR TYPE(l) = XlsParticipantLink")
+    Stream<DocumentLink> streamAllParticipantsLinks();
 }

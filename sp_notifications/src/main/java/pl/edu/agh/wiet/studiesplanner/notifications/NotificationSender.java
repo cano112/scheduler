@@ -67,11 +67,11 @@ public class NotificationSender extends EmailSenderImpl{
         sendEmail(email);
     }
 
-    private File createStudentList(List<Student> studentList) throws IOException {
+    private File createStudentList(Set<Student> studentList) throws IOException {
         File temp = File.createTempFile("studies_planner", null);
         FileWriter fileWriter = new FileWriter(temp);
 
-        for(Student student: studentList) {
+        for(Student student : studentList) {
             fileWriter.write(student.getId() + ";" + student.getFullName());
         }
 
