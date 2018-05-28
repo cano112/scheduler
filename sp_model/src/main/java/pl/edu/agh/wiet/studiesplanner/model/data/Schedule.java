@@ -25,10 +25,10 @@ public class Schedule {
         teachers.add(teacher);
     }
 
-    public Optional<StudentsGroup> getStudentsGroupById(int id) {
+    public Optional<StudentsGroup> getStudentsGroupById(String id) {
         return studentsGroups
                 .stream()
-                .filter(group -> group.getId() == id)
+                .filter(group -> group.getId().equals(id))
                 .findFirst();
     }
 

@@ -5,18 +5,19 @@ import pl.edu.agh.wiet.studiesplanner.model.solver.StudentsGroupConflict;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 public final class StudentsGroup implements ConflictCriterion {
-    private final int id;
+    private final String id;
     private final List<Student> students;
 
-    public StudentsGroup(int id) {
+    public StudentsGroup(String id) {
         this.id = id;
         this.students = new LinkedList<>();
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -35,14 +36,15 @@ public final class StudentsGroup implements ConflictCriterion {
 
         StudentsGroup group = (StudentsGroup) o;
 
-        return id == group.id && students.equals(group.students);
+        return id.equals(group.id) && students.equals(group.students);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + students.hashCode();
-        return result;
+        return Objects.hash(id);
+//        String result = id;
+//        result = 31 * result + students.hashCode();
+//        return result;
     }
 
     @Override
