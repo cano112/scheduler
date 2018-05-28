@@ -11,21 +11,21 @@ import java.util.List;
 public class EventsSheetParser {
     public void parse(List<List<Object>> downloadedSheet, Schedule model) {
         HashMap<String, Integer> columnMap = new HashMap<>();
-        columnMap.put("data", 0);
+        columnMap.put("date", 0);
         columnMap.put("hour", 1);
         columnMap.put("event", 2);
         columnMap.put("classroom", 3);
 
         for(List<Object> row: downloadedSheet) {
-            if(row.get(columnMap.get("data")).toString().equals("Data")) continue;
-            Classroom classroom = new Classroom(row.get(columnMap.get("classrooom")).toString());
+            if(row.get(columnMap.get("date")).toString().equals("Data")) continue;
+            Classroom classroom = new Classroom(row.get(columnMap.get("classroom")).toString());
             String event = row.get(columnMap.get("event")).toString();
             Subject subject = new Subject(event);
 
             String[] hours = row.get(columnMap.get("hour")).toString().replaceAll("\\s+", "").split("-");
 
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d.M.yyyy");
-            LocalDate date = LocalDate.parse(row.get(columnMap.get("data")).toString().replaceAll("\\s+", ""), dateFormatter);
+            LocalDate date = LocalDate.parse(row.get(columnMap.get("date")).toString().replaceAll("\\s+", ""), dateFormatter);
 
             DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("H:mm");
             LocalDateTime startTime = LocalDateTime.of(date, LocalTime.parse(hours[0], timeFormatter));
