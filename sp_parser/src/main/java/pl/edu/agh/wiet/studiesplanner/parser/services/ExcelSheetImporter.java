@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExcelSheetImporter {
-    public List<List<Object>> importExcel(String filePath) {
+public class ExcelSheetImporter implements SheetDownloader {
+    public List<List<Object>> download(String filePath) {
         List<List<Object>> importedSheet = new ArrayList<>();
         Workbook workbook = null;
 
