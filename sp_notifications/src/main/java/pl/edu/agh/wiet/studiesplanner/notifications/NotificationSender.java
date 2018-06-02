@@ -2,19 +2,17 @@ package pl.edu.agh.wiet.studiesplanner.notifications;
 
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
-import pl.edu.agh.wiet.studiesplanner.model.data.Activity;
-import pl.edu.agh.wiet.studiesplanner.model.data.Student;
-import pl.edu.agh.wiet.studiesplanner.model.data.Teacher;
+import pl.edu.agh.wiet.studiesplanner.model.data.*;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class NotificationSender extends EmailSenderImpl{
+public class NotificationSender extends EmailSenderImpl {
 
     public void sendNotificationToTeacher(List<Pair<Activity, LocalDateTime>> activities){
         if (activities.size() == 0){
@@ -25,15 +23,25 @@ public class NotificationSender extends EmailSenderImpl{
         List<File> attachments = new ArrayList<>();
 
         try{
-            for (Pair<Activity, LocalDateTime> pair : activities){
+            LocalDateTime beginDate = activities.get(0).getSecond();
+            LocalDateTime endDate = beginDate;
+            for (Pair<Activity, LocalDateTime> pair : activities) {
                 stringBuilder.append(pair.getSecond().toString()).append(" ")
                         .append(pair.getFirst().getType().getName()).append(" ")
                         .append(pair.getFirst().getSubject().getName()).append("\n");
                 attachments.add(createStudentList(pair.getFirst(), pair.getSecond()));
+                if (pair.getSecond().isBefore(beginDate)) {
+                    beginDate = pair.getSecond();
+                }
+                if (pair.getSecond().isAfter(endDate)) {
+                    endDate = pair.getSecond();
+                }
             }
+
             Email email = new Email.EmailBuilder()
                     .to(teacher.getEmail())
-                    .subject("Studies Planner notification")
+                    .subject("Studies Planner notification for weekend " + beginDate.toLocalDate().toString()
+                            + " to " + endDate.toLocalDate().toString())
                     .message(stringBuilder.toString())
                     .isHtml(false)
                     .attachments(attachments)
@@ -56,13 +64,22 @@ public class NotificationSender extends EmailSenderImpl{
     }
 
     private File createStudentList(Activity activity, LocalDateTime date) throws IOException {
-        File temp = File.createTempFile(date.toString(), null);
-        FileWriter fileWriter = new FileWriter(temp);
+        File temp = File.createTempFile(date.toString()
+                .replace("T", " ")
+                .replace(":", "_")
+                .replaceFirst("\\.[0-9]+", ""),
+                ".txt");
+        PrintWriter printWriter = new PrintWriter(temp);
         List<Student> studentList = activity.getStudentsGroup().getStudents();
-        fileWriter.write("Student list for '" + activity.getSubject() + "' at " + date.toString() + "\n");
+        printWriter.println("Student list for '" + activity.getSubject().getName() + "' " +
+                activity.getType().getName() + " at " +
+                date.toString().replace("T", " ")
+                .replaceFirst("\\.[0-9]+", ""));
         for(Student student: studentList) {
-            fileWriter.write(student.getId() + ";" + student.getFullName() + "\n");
+            printWriter.println(student.getId() + ";" + student.getFullName());
         }
+        printWriter.close();
         return temp;
     }
+
 }
