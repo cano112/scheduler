@@ -71,17 +71,5 @@ public class Notifier {
                 linksRepository.streamAllParticipantsLinks(),
                 linksRepository.streamAllTeacherLinks());
     }
-    /*
-    private void sendNotifications(){
-        for (Activity activity : getActivitiesToNotify()){
-            notificationSender.sendNotificationToTeacher(activity);
-            notificationSender.sendNotificationToStudents(activity);
-        }
-    }
 
-    private List<Activity> getActivitiesToNotify(){
-        //TODO
-        return null;
-    }
-    */
 }
