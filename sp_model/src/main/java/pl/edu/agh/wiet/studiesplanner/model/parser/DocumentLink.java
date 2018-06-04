@@ -2,6 +2,7 @@ package pl.edu.agh.wiet.studiesplanner.model.parser;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.IOException;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -17,6 +18,8 @@ public abstract class DocumentLink implements Fetchable {
     @Column
     @NotNull
     private String url;
+
+    public abstract void onDelete() throws IOException;
 
     public DocumentLink() {}
 

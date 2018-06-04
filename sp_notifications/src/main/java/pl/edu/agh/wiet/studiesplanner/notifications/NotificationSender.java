@@ -61,8 +61,9 @@ public class NotificationSender extends EmailSenderImpl{
         FileWriter fileWriter = new FileWriter(temp);
         Set<Student> studentList = activity.getStudentsGroup().getStudents();
         fileWriter.write("Student list for '" + activity.getSubject() + "' at " + date.toString() + "\n");
-        for(Student student: studentList) {
+        for (Student student : studentList) {
             fileWriter.write(student.getId() + ";" + student.getFullName() + "\n");
         }
         return temp;
+    }
 }

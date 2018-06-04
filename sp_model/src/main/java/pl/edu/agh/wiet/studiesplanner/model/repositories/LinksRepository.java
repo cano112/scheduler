@@ -18,4 +18,7 @@ public interface LinksRepository extends JpaRepository<DocumentLink, Long> {
 
     @Query("SELECT l FROM DocumentLink l WHERE TYPE(l) = GoogleDocsParticipantLink OR TYPE(l) = XlsParticipantLink")
     Stream<DocumentLink> streamAllParticipantsLinks();
+
+    @Query("SELECT l FROM DocumentLink l WHERE TYPE(l) = GoogleDocsEventLink OR TYPE(l) = XlsEventLink")
+    Stream<DocumentLink> streamAllEventLinks();
 }

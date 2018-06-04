@@ -1,4 +1,4 @@
-package pl.edu.agh.wiet.studiesplanner.model.parser;
+package pl.edu.agh.wiet.studiesplanner.model.parser.google;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;

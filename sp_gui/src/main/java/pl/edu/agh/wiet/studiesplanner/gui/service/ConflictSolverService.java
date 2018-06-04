@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.wiet.studiesplanner.model.data.Schedule;
 import pl.edu.agh.wiet.studiesplanner.model.parser.DocumentLink;
+import pl.edu.agh.wiet.studiesplanner.model.parser.Warning;
 import pl.edu.agh.wiet.studiesplanner.model.repositories.LinksRepository;
 import pl.edu.agh.wiet.studiesplanner.model.solver.Conflict;
 import pl.edu.agh.wiet.studiesplanner.parser.exceptions.SheetParseException;
@@ -11,6 +12,7 @@ import pl.edu.agh.wiet.studiesplanner.parser.services.SheetsParserFacade;
 import pl.edu.agh.wiet.studiesplanner.solver.ConflictSolver;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -34,23 +36,40 @@ public class ConflictSolverService {
         Stream<DocumentLink> scheduleLinks = linksRepository.streamAllScheduleLinks();
         Stream<DocumentLink> participantLinks = linksRepository.streamAllParticipantsLinks();
         Stream<DocumentLink> teacherLinks = linksRepository.streamAllTeacherLinks();
+        Stream<DocumentLink> eventLinks = linksRepository.streamAllEventLinks();
 
         try {
-            Schedule schedule = sheetsParser.parse(scheduleLinks, participantLinks, teacherLinks);
-
+            Schedule schedule = sheetsParser.parse(scheduleLinks, participantLinks, teacherLinks, eventLinks);
             Set<Conflict> conflicts = new ConflictSolver().solve(schedule.getConventions());
 
             StringBuilder stringBuilder = new StringBuilder();
             conflicts.forEach(
-                    conflict -> stringBuilder.append(conflict.getDescription()).append("\n")
+                    conflict -> {
+                        stringBuilder.append("CONFLICT: ");
+                        stringBuilder.append(conflict.getDescription()).append("\n");
+                    }
             );
+            stringBuilder.append(solveWarnings(schedule));
 
-            notificationService.showInfoMessage("Done");
+            notificationService.showInfoMessage("Checking conflicts done");
             return stringBuilder.toString();
         } catch (SheetParseException e) {
             notificationService.showErrorMessage("Cannot parse link: " + e.getLink().getUrl());
         }
 
         return "";
+    }
+
+    private String solveWarnings(Schedule schedule) {
+        List<Warning> warnings = sheetsParser.findWarnings(schedule);
+
+        StringBuilder warningString = new StringBuilder();
+        warnings.forEach(warning -> {
+            warningString.append("WARNING: ");
+            warningString.append(warning.getMessage());
+            warningString.append("\n");
+        });
+
+        return warningString.toString();
     }
 }

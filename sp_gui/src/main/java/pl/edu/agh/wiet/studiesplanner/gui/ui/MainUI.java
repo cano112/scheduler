@@ -1,17 +1,13 @@
 package pl.edu.agh.wiet.studiesplanner.gui.ui;
 
 import com.vaadin.annotations.Theme;
-import com.vaadin.server.BrowserWindowOpener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import org.springframework.beans.factory.annotation.Autowired;
+import pl.edu.agh.wiet.studiesplanner.gui.SizeVariables;
 import pl.edu.agh.wiet.studiesplanner.gui.service.LoginService;
-
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 
 @Theme("valo")
 @SpringUI(path = "/app")
@@ -34,6 +30,7 @@ public class MainUI extends BaseUI {
         setContent(root);
 
         final CssLayout navigationBar = new CssLayout();
+        navigationBar.setHeight(SizeVariables.NAV_BAR_HEIGHT.getValue(), SizeVariables.NAV_BAR_HEIGHT.getUnit());
         navigationBar.addStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
         navigationBar.addComponent(createLogoutButton());
 

@@ -1,5 +1,8 @@
-package pl.edu.agh.wiet.studiesplanner.model.parser;
+package pl.edu.agh.wiet.studiesplanner.model.parser.xls;
 
+import pl.edu.agh.wiet.studiesplanner.model.DirectoryConfig;
+import pl.edu.agh.wiet.studiesplanner.model.parser.DocumentLink;
+import pl.edu.agh.wiet.studiesplanner.model.parser.FetchStrategy;
 import pl.edu.agh.wiet.studiesplanner.model.service.LinksService;
 
 import javax.persistence.*;
@@ -21,5 +24,10 @@ public abstract class XlsLink extends DocumentLink {
         return LinksService
                 .getFetchStrategy(FetchStrategy.XLS)
                 .getDocument(this.getUrl());
+    }
+
+    @Override
+    public void onDelete() throws IOException {
+        LinksService.deleteFile(getUrl());
     }
 }

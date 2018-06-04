@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 import pl.edu.agh.wiet.studiesplanner.model.parser.FetchStrategy;
 
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 @Service
 @Transactional
@@ -23,6 +27,10 @@ public class LinksService implements ApplicationContextAware {
             default:
                 throw new RuntimeException("No such fetch strategy");
         }
+    }
+
+    public static void deleteFile(String path) throws IOException {
+        Files.deleteIfExists(Paths.get(path));
     }
 
     @Override

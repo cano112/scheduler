@@ -24,7 +24,7 @@ public final class StudentsGroup implements ConflictCriterion {
     }
 
     public void addStudent(Student student) {
-        students.add(student);
+        this.students.add(student);
     }
 
     public void addStudents(Collection<Student> students) {

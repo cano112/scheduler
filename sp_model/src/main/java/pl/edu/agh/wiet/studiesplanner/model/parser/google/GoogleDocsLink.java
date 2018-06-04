@@ -1,5 +1,7 @@
-package pl.edu.agh.wiet.studiesplanner.model.parser;
+package pl.edu.agh.wiet.studiesplanner.model.parser.google;
 
+import pl.edu.agh.wiet.studiesplanner.model.parser.DocumentLink;
+import pl.edu.agh.wiet.studiesplanner.model.parser.FetchStrategy;
 import pl.edu.agh.wiet.studiesplanner.model.service.LinksService;
 
 import javax.persistence.*;
@@ -22,4 +24,7 @@ public abstract class GoogleDocsLink extends DocumentLink {
                 .getFetchStrategy(FetchStrategy.GOOGLE_DOCS)
                 .getDocument(this.getUrl());
     }
+
+    @Override
+    public void onDelete() {}
 }

@@ -12,6 +12,7 @@ public class NotificationService {
     private static final Position NOTIFICATION_POSITION = Position.TOP_LEFT;
     private static final String ERROR_HEADER = "Error occurred";
     private static final String INFO_HEADER = "Success!";
+    private static final String WARNING_HEADER = "Warning!";
 
     public void showErrorMessage(String message) {
         Notification notification = new Notification(ERROR_HEADER, message, Notification.Type.ERROR_MESSAGE);
@@ -24,4 +25,11 @@ public class NotificationService {
         notification.setPosition(NOTIFICATION_POSITION);
         notification.show(Page.getCurrent());
     }
+
+    public void showWarningMessage(String message) {
+        Notification notification = new Notification(WARNING_HEADER, message, Notification.Type.WARNING_MESSAGE);
+        notification.setPosition(NOTIFICATION_POSITION);
+        notification.show(Page.getCurrent());
+    }
+
 }

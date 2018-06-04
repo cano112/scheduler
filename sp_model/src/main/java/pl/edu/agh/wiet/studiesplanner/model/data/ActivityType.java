@@ -6,7 +6,8 @@ package pl.edu.agh.wiet.studiesplanner.model.data;
 public enum ActivityType {
     W("Wykład"),
     L("Laboratorium"),
-    C("Ćwiczenia");
+    C("Ćwiczenia"),
+    K("Konferencja");
 
     private final String name;
 

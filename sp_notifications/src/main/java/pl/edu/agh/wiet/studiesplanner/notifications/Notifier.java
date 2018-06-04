@@ -69,7 +69,8 @@ public class Notifier {
         return sheetsParser.parse(
                 linksRepository.streamAllScheduleLinks(),
                 linksRepository.streamAllParticipantsLinks(),
-                linksRepository.streamAllTeacherLinks());
+                linksRepository.streamAllTeacherLinks(),
+                linksRepository.streamAllEventLinks());
     }
 
 }
