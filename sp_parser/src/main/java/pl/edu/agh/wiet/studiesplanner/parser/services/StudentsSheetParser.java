@@ -23,13 +23,15 @@ public class StudentsSheetParser implements SheetParser {
         columnMap.put("name", 2);
         columnMap.put("groupNumber", 3);
         columnMap.put("email", 4);
+        columnMap.put("year", 5);
+        columnMap.put("department", 6);
 
         for(List<Object> row: downloadedSheet) {
             if(row.get(0).toString().equals("ID")) continue;
 
             int groupNumber = Integer.parseInt(row.get(columnMap.get("groupNumber")).toString());
-            StudentsGroup group = model.getStudentsGroupById(groupNumber).orElseGet(() -> {
-                StudentsGroup g = new StudentsGroup(groupNumber);
+            StudentsGroup group = model.getStudentsGroupById(row.get(columnMap.get("year")).toString() + row.get(columnMap.get("department")).toString() + groupNumber).orElseGet(() -> {
+                StudentsGroup g = new StudentsGroup(row.get(columnMap.get("year")).toString() + row.get(columnMap.get("department")).toString() + groupNumber);
                 model.addStudentsGroup(g);
                 return g;
             });

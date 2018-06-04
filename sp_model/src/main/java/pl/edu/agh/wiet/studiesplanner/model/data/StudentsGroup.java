@@ -3,18 +3,19 @@ package pl.edu.agh.wiet.studiesplanner.model.data;
 import pl.edu.agh.wiet.studiesplanner.model.solver.Conflict;
 import pl.edu.agh.wiet.studiesplanner.model.solver.StudentsGroupConflict;
 
+import java.util.Set;
 import java.util.*;
 
 public final class StudentsGroup implements ConflictCriterion {
-    private final int id;
+    private final String id;
     private final Set<Student> students;
 
-    public StudentsGroup(int id) {
+    public StudentsGroup(String id) {
         this.id = id;
         this.students = new LinkedHashSet<>();
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -37,14 +38,12 @@ public final class StudentsGroup implements ConflictCriterion {
 
         StudentsGroup group = (StudentsGroup) o;
 
-        return id == group.id && students.equals(group.students);
+        return id.equals(group.id) && students.equals(group.students);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + students.hashCode();
-        return result;
+        return Objects.hash(id);
     }
 
     @Override

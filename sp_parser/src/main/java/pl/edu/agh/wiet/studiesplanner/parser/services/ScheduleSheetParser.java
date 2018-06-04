@@ -54,15 +54,15 @@ public class ScheduleSheetParser implements SheetParser {
         LocalDateTime endTime = LocalDateTime.of(date, LocalTime.parse(hours[1], timeFormatter));
 
         List<Activity> activityWorkingList = new ArrayList<>();
-        for(int i = 3; i < row.size()-2; i += 3) {
-            Activity activity = parseActivity(row, i, headerRow, model);
+        for(int i = 3; i < row.size() - 2; i += 3) {
+            Activity activity = parseActivity(row, i, headerRow, model, row.size() - 2, row.size() - 1);
             if(activity != null) activityWorkingList.add(activity);
         }
 
         return new TimeBlock(startTime, endTime, activityWorkingList);
     }
 
-    private Activity parseActivity(List<Object> row, int i, List<Object> headerRow, Schedule model) {
+    private Activity parseActivity(List<Object> row, int i, List<Object> headerRow, Schedule model, int year, int department) {
         if(!validateActivity(row, i)) return null;
 
         String[] subjectAndClassroom = row.get(i).toString().split(", ");
@@ -75,7 +75,7 @@ public class ScheduleSheetParser implements SheetParser {
         String[] name = row.get(i+2).toString().split(" ");
         Teacher teacher = new Teacher(name[0], name[1]);
         model.addTeacher(teacher);
-        StudentsGroup group = new StudentsGroup(Integer.parseInt(headerContent[1]));
+        StudentsGroup group = new StudentsGroup(row.get(year).toString() + row.get(department).toString() + headerContent[1]);
         model.addStudentsGroup(group);
 
         return new Activity(teacher, type, subject, classroom, group);
