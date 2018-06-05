@@ -1,7 +1,5 @@
 package pl.edu.agh.wiet.studiesplanner.notifications;
 
-import oracle.jrockit.jfr.StringConstantPool;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
