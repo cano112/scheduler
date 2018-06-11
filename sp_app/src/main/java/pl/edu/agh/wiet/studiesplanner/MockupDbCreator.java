@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import pl.edu.agh.wiet.studiesplanner.model.parser.google.GoogleDocsParticipantLink;
@@ -17,6 +18,7 @@ import javax.transaction.Transactional;
  * Temporary class for filling db with mockup data
  */
 @Component
+@Profile("dev")
 @Transactional
 public class MockupDbCreator implements ApplicationListener<ContextRefreshedEvent> {
 
