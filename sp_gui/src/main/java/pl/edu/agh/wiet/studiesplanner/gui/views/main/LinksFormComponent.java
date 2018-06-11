@@ -172,22 +172,22 @@ public class LinksFormComponent extends AppAbstractComponent {
 
     private Upload createUploadParticipantLinkButton() {
         return createUploadButton(DirectoryConfig.XLS_PARTICIPANTS_DIR, file -> {
-            linksFormService.addScheduleLink(file.getPath());
-            scheduleLinksGrid.setItems(linksFormService.getParticipantLinksSet());
+            linksFormService.addParticipantLink(file.getPath());
+            participantLinksGrid.setItems(linksFormService.getParticipantLinksSet());
         });
     }
 
     private Upload createUploadTeacherLinkButton() {
         return createUploadButton(DirectoryConfig.XLS_TEACHERS_DIR, file -> {
-            linksFormService.addScheduleLink(file.getPath());
-            scheduleLinksGrid.setItems(linksFormService.getTeacherLinksSet());
+            linksFormService.addTeacherLink(file.getPath());
+            teacherLinksGrid.setItems(linksFormService.getTeacherLinksSet());
         });
     }
 
     private Upload createUploadEventLinkButton() {
         return createUploadButton(DirectoryConfig.XLS_EVENTS_DIR, file -> {
-            linksFormService.addScheduleLink(file.getPath());
-            scheduleLinksGrid.setItems(linksFormService.getEventLinksSet());
+            linksFormService.addEventLink(file.getPath());
+            eventLinksGrid.setItems(linksFormService.getEventLinksSet());
         });
     }
 
