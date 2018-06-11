@@ -7,7 +7,7 @@
     <groupId>pl.agh.edu.wiet</groupId>
     <artifactId>studies-planner</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-BETA</version>
     <description>Part-time studies scheduling tool</description>
     <modules>
         <module>sp_gui</module>
@@ -113,10 +113,10 @@
                 <configuration>
                     <includeTarget>false</includeTarget>
                     <includes>
-                        <include>sp_app/target/sp-app-1.0-SNAPSHOT.jar</include>
+                        <include>sp_app/target/sp-app-1.0-BETA.jar</include>
                     </includes>
                     <processTypes>
-                        <web>java -Dserver.port=$PORT -jar target/sp-app-1.0-SNAPSHOT.jar</web>
+                        <web>java -Dserver.port=$PORT -jar target/sp-app-1.0-BETA.jar</web>
                     </processTypes>
                 </configuration>
             </plugin>
