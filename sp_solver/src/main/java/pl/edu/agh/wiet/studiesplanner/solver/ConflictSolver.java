@@ -39,13 +39,15 @@ public class ConflictSolver {
 
         for(Map.Entry<ConflictCriterion, List<TimeBlock>> entry : blocksByCriteria.entrySet()) {
             ConflictCriterion key = entry.getKey();
-            List<TimeBlock> timeBlocks = entry.getValue();
-            for(int i = 0; i < timeBlocks.size(); i++) {
-                for(int j = i + 1; j < timeBlocks.size(); j++) {
-                    TimeBlock firstBlock = timeBlocks.get(i);
-                    TimeBlock secondBlock = timeBlocks.get(j);
-                    if(firstBlock.isOverlappingWith(secondBlock)) { // conflict
-                        conflicts.add(key.createConflict(new HashSet<>(Arrays.asList(firstBlock, secondBlock))));
+            if(key != null) {
+                List<TimeBlock> timeBlocks = entry.getValue();
+                for(int i = 0; i < timeBlocks.size(); i++) {
+                    for(int j = i + 1; j < timeBlocks.size(); j++) {
+                        TimeBlock firstBlock = timeBlocks.get(i);
+                        TimeBlock secondBlock = timeBlocks.get(j);
+                        if(firstBlock.isOverlappingWith(secondBlock)) { // conflict
+                            conflicts.add(key.createConflict(new HashSet<>(Arrays.asList(firstBlock, secondBlock))));
+                        }
                     }
                 }
             }

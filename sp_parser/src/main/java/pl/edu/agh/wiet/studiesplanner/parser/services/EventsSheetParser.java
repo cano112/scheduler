@@ -4,8 +4,10 @@ import org.springframework.stereotype.Service;
 import pl.edu.agh.wiet.studiesplanner.model.data.*;
 import pl.edu.agh.wiet.studiesplanner.model.service.SheetParser;
 
+import java.sql.Time;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -43,27 +45,28 @@ public class EventsSheetParser implements SheetParser {
             int eventYear = timeBlock.getTimeStart().getYear();
             int eventMonth = timeBlock.getTimeStart().getMonthValue();
             int eventDay = timeBlock.getTimeStart().getDayOfMonth();
-            boolean isAdd;
+            boolean eventAdded = false;
+            List<Convention> conventionsWorkingList = new LinkedList<>(model.getConventions());
 
-            for (Convention convention : model.getConventions()) {
-                isAdd = false;
-                for (TimeBlock timeBlock1 : convention.getTimeBlocks()) {
+            CONV_LOOP: for (Convention convention : conventionsWorkingList) {
+                List<TimeBlock> timeBlocksWorkingList = new LinkedList<>(convention.getTimeBlocks());
+                for (TimeBlock timeBlock1 : timeBlocksWorkingList) {
                     int year = timeBlock1.getTimeStart().getYear();
                     int month = timeBlock1.getTimeStart().getMonthValue();
                     int day = timeBlock1.getTimeStart().getDayOfMonth();
                     if (eventYear == year && eventMonth == month && eventDay == day) {
                         convention.getTimeBlocks().add(timeBlock);
-                        isAdd = true;
-                        break;
+                        eventAdded = true;
+                        break CONV_LOOP;
                     }
                 }
-                if (!isAdd) {
-                    List<TimeBlock> timeBlocks = new LinkedList<>();
-                    timeBlocks.add(timeBlock);
-                    Convention convention1 = new Convention(0, timeBlocks);
-                    model.getConventions().add(convention1);
-                }
+            }
 
+            if(!eventAdded) {
+                List<TimeBlock> timeBlocks = new LinkedList<>();
+                timeBlocks.add(timeBlock);
+                Convention convention1 = new Convention(0, timeBlocks);
+                model.getConventions().add(convention1);
             }
         }
     }

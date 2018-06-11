@@ -30,8 +30,13 @@ public class StudentsSheetParser implements SheetParser {
             if(row.get(0).toString().equals("ID")) continue;
 
             int groupNumber = Integer.parseInt(row.get(columnMap.get("groupNumber")).toString());
-            StudentsGroup group = model.getStudentsGroupById(row.get(columnMap.get("year")).toString() + row.get(columnMap.get("department")).toString() + groupNumber).orElseGet(() -> {
-                StudentsGroup g = new StudentsGroup(row.get(columnMap.get("year")).toString() + row.get(columnMap.get("department")).toString() + groupNumber);
+            StudentsGroup group = model.getStudentsGroupById(row.get(columnMap.get("year")).toString() +
+                    row.get(columnMap.get("department")).toString() + groupNumber)
+                    .orElseGet(() -> {
+                        StudentsGroup g = new StudentsGroup(
+                                row.get(columnMap.get("year")).toString()
+                                        + row.get(columnMap.get("department")).toString()
+                                        + groupNumber);
                 model.addStudentsGroup(g);
                 return g;
             });
