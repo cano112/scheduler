@@ -7,7 +7,7 @@
     <groupId>pl.agh.edu.wiet</groupId>
     <artifactId>studies-planner</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-BETA</version>
     <description>Part-time studies scheduling tool</description>
     <modules>
         <module>sp_gui</module>
