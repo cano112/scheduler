@@ -4,6 +4,7 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import pl.edu.agh.wiet.studiesplanner.gui.service.ConflictSolverService;
 import pl.edu.agh.wiet.studiesplanner.gui.service.NotificationService;
+import pl.edu.agh.wiet.studiesplanner.model.solver.SolverResult;
 import pl.edu.agh.wiet.studiesplanner.notifications.NotificationStateHolder;
 
 public class ConflictSolverComponent extends AppAbstractComponent {
@@ -53,13 +54,16 @@ public class ConflictSolverComponent extends AppAbstractComponent {
         Button button = new Button("Check");
         button.addStyleName(ValoTheme.BUTTON_PRIMARY);
         button.addClickListener(e -> {
-            String description = conflictSolverService.solveConflicts();
-            if (description.isEmpty()) {
+            SolverResult result = conflictSolverService.solveConflicts();
+            if (result == null || result.getResultString().isEmpty()) {
                 notificationCheckBox.setEnabled(true);
                 conflicts.setValue("No conflicts");
             }
             else {
-                conflicts.setValue(description);
+                conflicts.setValue(result.getResultString());
+                if(result.getConflictsCount() == 0) {
+                    notificationCheckBox.setEnabled(true);
+                }
             }
         });
         return button;
